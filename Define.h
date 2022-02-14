@@ -1,6 +1,5 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
-using namespace std;
 
 enum OPTION { PRINT_BRIEF, PRINT_DETAIL, LRI };
 enum OPERATION_TYPE { ADD, DEL, SCH, MOD };
@@ -9,7 +8,7 @@ enum CERTI_LEVEL { ADV, PRO, EX };
 
 struct EmployeeInfo {
 	int employeeNum;
-	string name;
+	std::string name;
 	CAREER_LEVEL cl;
 	int phoneNum;
 	int birthday;
@@ -19,12 +18,12 @@ struct EmployeeInfo {
 struct ParserResult {
 	OPERATION_TYPE operationType;
 	OPTION option1;	// print detail
-	OPTION option2;	// °Ë»ö ¼¼ºÎ ¿É¼Ç
-	OPTION option3;	// ¿É¼Ç3: ÇöÀç´Â ºñ¾îÀÖÀ½
-	string searchColumn;
-	string searchData;
-	string changeColumn;
-	string changeData;
+	OPTION option2;	// ê²€ìƒ‰ ì„¸ë¶€ ì˜µì…˜
+	OPTION option3;	// ì˜µì…˜3: í˜„ì¬ëŠ” ë¹„ì–´ìˆìŒ
+	std::string searchColumn;
+	std::string searchData;
+	std::string changeColumn;
+	std::string changeData;
 
 	EmployeeInfo info;
 };
