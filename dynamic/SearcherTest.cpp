@@ -117,6 +117,34 @@ TEST(PhoneNumberSearchTest, NoOptionTest) {
 	g_DB.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
 
 	Searcher* pSearcher = new PhoneNumberSearcher();
+
+	vector<EmployeeInfo> result1 = pSearcher->search(ParserResult({ OPERATION_TYPE::SCH, OPTION1::NONE, OPTION2::NONE, OPTION3::NONE, "phoneNum", "010-6855-9852", "", "" }));
+	EXPECT_EQ(1, result1.size());
+	EXPECT_TRUE(compareEmployeeInfo(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }), result1[0]));
+
+	vector<EmployeeInfo> result2 = pSearcher->search(ParserResult({ OPERATION_TYPE::SCH, OPTION1::NONE, OPTION2::NONE, OPTION3::NONE, "phoneNum", "010-2135-1546", "", "" }));
+	EXPECT_EQ(1, result2.size());
+	EXPECT_TRUE(compareEmployeeInfo(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }), result2[0]));
+}
+
+TEST(PhoneNumberSearchTest, OptionTest) {
+	g_DB.clear();
+	g_DB.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
+	g_DB.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
+	g_DB.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
+	g_DB.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
+	g_DB.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
+	g_DB.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
+
+	Searcher* pSearcher = new PhoneNumberSearcher();
+
+	vector<EmployeeInfo> result1 = pSearcher->search(ParserResult({ OPERATION_TYPE::SCH, OPTION1::NONE, OPTION2::M, OPTION3::NONE, "phoneNum", "4756", "", "" }));
+	EXPECT_EQ(1, result1.size());
+	EXPECT_TRUE(compareEmployeeInfo(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }), result1[0]));
+
+	vector<EmployeeInfo> result2 = pSearcher->search(ParserResult({ OPERATION_TYPE::SCH, OPTION1::NONE, OPTION2::L, OPTION3::NONE, "phoneNum", "9852", "", "" }));
+	EXPECT_EQ(1, result2.size());
+	EXPECT_TRUE(compareEmployeeInfo(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }), result2[0]));
 }
 
 TEST(BirthdaySearchTest, NoOptionTest) {
