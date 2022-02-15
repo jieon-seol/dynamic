@@ -3,7 +3,7 @@
 
 enum class OPTION1 { NONE = -1, P, MAX };
 enum class OPTION2 { NONE = -1, Y, M, D, L, F, MAX };
-enum class OPTION3 { NONE = -1, MAX_OPTION3 };
+enum class OPTION3 { NONE = -1, MAX };
 enum class OPERATION_TYPE { NONE = -1, ADD, DEL, SCH, MOD, MAX };
 
 struct EmployeeInfo {
