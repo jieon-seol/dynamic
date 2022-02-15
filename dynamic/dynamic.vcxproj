@@ -140,14 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Define.h" />
-    <ClInclude Include="printer.h" />
+    <ClInclude Include="Printer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="printer.cpp" />
-    <ClCompile Include="printer_test.cpp" />
+    <ClCompile Include="Printer.cpp" />
+    <ClCompile Include="PrinterTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
