@@ -1,33 +1,45 @@
 
 #include "Operator.h"
 
+
 Operator* FactoryOperator::createOperator(const ParserResult& parserResult)
 {
-	return nullptr;
+	switch (parserResult.operationType)
+	{
+	case OPERATION_TYPE::ADD:
+		return new AddOperator();
+	case OPERATION_TYPE::DEL:
+		return new DeleteOperator();
+	case OPERATION_TYPE::SCH:
+		return new SearchOperator();
+	case OPERATION_TYPE::MOD:
+		return new ModifyOperator();
+
+	}
 }
 
 
-Operator* AddOperator::operate(std::vector<EmployeeInfo> employeeInfo, ParserResult parserResult)
+int AddOperator::operate(ParserResult parserResult)
 {
-	return nullptr;
+	return 0;
 }
 
 
-Operator* DeleteOperator::operate(std::vector<EmployeeInfo> employeeInfo, ParserResult parserResult)
+int DeleteOperator::operate(ParserResult parserResult)
 {
-	return nullptr;
+	return 0;
 }
 
 
-Operator* SearchOperator::operate(std::vector<EmployeeInfo> employeeInfo, ParserResult parserResult)
+int SearchOperator::operate(ParserResult parserResult)
 {
-	return nullptr;
+	return 0;
 }
 
 
-Operator* ModifyOperator::operate(std::vector<EmployeeInfo> employeeInfo, ParserResult parserResult)
+int ModifyOperator::operate(ParserResult parserResult)
 {
-	return nullptr;
+	return 0;
 }
 
 
