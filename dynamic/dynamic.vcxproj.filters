@@ -13,18 +13,25 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="소스 파일\UnitTest">
       <UniqueIdentifier>{782e7b4a-89be-4596-ac1e-42fa75d5dd2e}</UniqueIdentifier>
     </Filter>
+=======
+>>>>>>> 5554a0e... [Feature] Init operation class make createOperator testcode
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Define.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Printer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Searcher.h">
+=======
+    <ClInclude Include="Operator.h">
+>>>>>>> 5554a0e... [Feature] Init operation class make createOperator testcode
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,6 +39,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClCompile Include="PrinterTest.cpp">
       <Filter>소스 파일\UnitTest</Filter>
     </ClCompile>
@@ -44,5 +52,13 @@
     <ClCompile Include="SearcherTest.cpp">
       <Filter>소스 파일\UnitTest</Filter>
     </ClCompile>
+=======
+    <ClCompile Include="Operator.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="OperatorTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+>>>>>>> 5554a0e... [Feature] Init operation class make createOperator testcode
   </ItemGroup>
 </Project>

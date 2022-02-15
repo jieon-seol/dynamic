@@ -26,4 +26,8 @@ struct ParserResult {
 	std::string changeData;
 
 	EmployeeInfo info;
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 5554a0e... [Feature] Init operation class make createOperator testcode
