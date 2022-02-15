@@ -1,45 +1,55 @@
-
 #include "Operator.h"
 
 
-Operator* FactoryOperator::createOperator(const ParserResult& parserResult)
-{
+void Operator::addDataBase(EmployeeInfo employeeInfo) {
+	dataBase.emplace_back(employeeInfo);
+}
+
+
+void AddOperator::operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) {
+	return;
+}
+
+
+void DeleteOperator::operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) {
+	return;
+}
+
+
+void SearchOperator::operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) {
+	return;
+}
+
+
+void ModifyOperator::operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) {
+	return;
+}
+
+FactoryOperator::FactoryOperator() {
+	pAddOperator_ = new AddOperator();
+	pDeleteOperator_ = new DeleteOperator();
+	pSearchOperator_ = new SearchOperator();
+	pModifyOperator_ = new ModifyOperator();
+}
+
+Operator* FactoryOperator::getOperator(ParserResult& parserResult) {
+
+
+	Operator* retOperator = nullptr;
 	switch (parserResult.operationType)
 	{
 	case OPERATION_TYPE::ADD:
-		return new AddOperator();
+		retOperator = pAddOperator_;
 	case OPERATION_TYPE::DEL:
-		return new DeleteOperator();
+		retOperator = pDeleteOperator_;
 	case OPERATION_TYPE::SCH:
-		return new SearchOperator();
+		retOperator = pSearchOperator_;
 	case OPERATION_TYPE::MOD:
-		return new ModifyOperator();
-
+		retOperator = pModifyOperator_;
 	}
+	return retOperator;
 }
 
 
-int AddOperator::operate(ParserResult parserResult)
-{
-	return 0;
-}
-
-
-int DeleteOperator::operate(ParserResult parserResult)
-{
-	return 0;
-}
-
-
-int SearchOperator::operate(ParserResult parserResult)
-{
-	return 0;
-}
-
-
-int ModifyOperator::operate(ParserResult parserResult)
-{
-	return 0;
-}
 
 

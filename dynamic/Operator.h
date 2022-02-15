@@ -4,29 +4,32 @@
 
 class Operator {
 public:
-	
-	virtual int operate(ParserResult parserResult) = 0;
+	virtual ~Operator() {};
+	virtual void operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) = 0;
+	void addDataBase(EmployeeInfo employeeInfo);
+private:
+	std::vector<EmployeeInfo> dataBase;
 };
 
 
 class AddOperator : public Operator {
 public:
-	int operate(ParserResult parserResult);
+	void operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) override;
 };
 
 class DeleteOperator : public Operator {
 public:
-	int operate(ParserResult parserResult);
+	void operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) override;
 };
 
 class SearchOperator : public Operator {
 public:
-	int operate(ParserResult parserResult);
+	void operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) override;
 };
 
 class ModifyOperator : public Operator {
 public:
-	int operate(ParserResult parserResult);
+	void operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) override;
 };
 
 
@@ -34,10 +37,17 @@ public:
 
 class IFactoryOperator {
 public:
-	virtual Operator* createOperator(const ParserResult& parserResult) = 0;
+	virtual Operator* getOperator(ParserResult& parserResult) = 0;
+	virtual ~IFactoryOperator() {};
 };
 
 class FactoryOperator : public IFactoryOperator {
 public:
-	Operator* createOperator(const ParserResult& parserResult) override;
+	FactoryOperator();
+	Operator* getOperator(ParserResult& parserResult) override;
+protected:
+	Operator* pAddOperator_;
+	Operator* pDeleteOperator_;
+	Operator* pSearchOperator_;
+	Operator* pModifyOperator_;
 };
