@@ -84,3 +84,36 @@ vector<EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) {
 	}
 	return result;
 }
+
+string PhoneNumberSearcher::getNumberByOption(string phoneNumber, OPTION2 numberOption) {
+	if (numberOption == OPTION2::NONE) return phoneNumber;
+
+	vector<string> subStr = splitString(phoneNumber, '-');
+	if (subStr.size() != 3) {
+		;// Error
+	}
+
+	if (numberOption == OPTION2::M) {
+		return subStr[1];
+	}
+	else if (numberOption == OPTION2::L) {
+		return subStr[2];
+	}
+	else {
+		; // Error
+	}
+}
+
+vector<EmployeeInfo> PhoneNumberSearcher::search(const ParserResult& parserResult) {
+	string searchNumber = parserResult.searchData;
+	OPTION2 numberOption = parserResult.option2;
+	vector<EmployeeInfo> result;
+
+	for (auto info : g_DB) {
+		if (searchNumber.compare(getNumberByOption(info.phoneNum, numberOption)) == 0) {
+			result.emplace_back(info);
+		}
+	}
+
+	return result;
+}

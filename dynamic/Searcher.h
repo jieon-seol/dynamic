@@ -31,7 +31,7 @@ public:
 class PhoneNumberSearcher : public Searcher {
 public:
 	string getNumberByOption(string phoneNumber, OPTION2 numberOption);
-	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override { return vector<EmployeeInfo>(); };
+	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override;
 };
 
 class BirthdaySearcher : public Searcher {
