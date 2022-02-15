@@ -13,15 +13,15 @@ bool compareEmployeeInfo(const EmployeeInfo& info1, const EmployeeInfo& info2) {
 }
 
 TEST(EmployeeNumSearchTest, NoOptionTest) {
-	g_DB.clear();
-	g_DB.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
-	g_DB.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
-	g_DB.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
+	vector<EmployeeInfo> dataBase;
+	dataBase.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
+	dataBase.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
+	dataBase.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
 
-	Searcher* pSearcher = new EmployeeNumSearcher();
+	Searcher* pSearcher = new EmployeeNumSearcher(&dataBase);
 
 	vector<EmployeeInfo> result1 = pSearcher->search(ParserResult({ OPERATION_TYPE::SCH, OPTION1::NONE, OPTION2::NONE, OPTION3::NONE, "employeeNum", "18051224", "", "" }));
 	EXPECT_EQ(1, result1.size());
@@ -38,15 +38,15 @@ TEST(EmployeeNumSearchTest, NoOptionTest) {
 }
 
 TEST(NameSearchTest, NoOptionTest) {
-	g_DB.clear();
-	g_DB.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
-	g_DB.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
-	g_DB.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
+	vector<EmployeeInfo> dataBase;
+	dataBase.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
+	dataBase.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
+	dataBase.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
 
-	Searcher* pSearcher = new NameSearcher();
+	Searcher* pSearcher = new NameSearcher(&dataBase);
 
 	vector<EmployeeInfo> result1 = pSearcher->search(ParserResult({ OPERATION_TYPE::SCH, OPTION1::NONE, OPTION2::NONE, OPTION3::NONE, "name", "SHIN JUNHYUCK", "", "" }));
 	EXPECT_EQ(1, result1.size());
@@ -57,15 +57,15 @@ TEST(NameSearchTest, NoOptionTest) {
 }
 
 TEST(NameSearchTest, OptionTest) {
-	g_DB.clear();
-	g_DB.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
-	g_DB.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
-	g_DB.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
+	vector<EmployeeInfo> dataBase;
+	dataBase.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
+	dataBase.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
+	dataBase.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
 
-	Searcher* pSearcher = new NameSearcher();
+	Searcher* pSearcher = new NameSearcher(&dataBase);
 
 	vector<EmployeeInfo> result1 = pSearcher->search(ParserResult({ OPERATION_TYPE::SCH, OPTION1::NONE, OPTION2::F, OPTION3::NONE, "name", "YEONGCHUL", "", "" }));
 	EXPECT_EQ(1, result1.size());
@@ -81,15 +81,15 @@ TEST(NameSearchTest, OptionTest) {
 }
 
 TEST(ClSearchTest, NoOptionTest) {
-	g_DB.clear();
-	g_DB.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
-	g_DB.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
-	g_DB.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
+	vector<EmployeeInfo> dataBase;
+	dataBase.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
+	dataBase.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
+	dataBase.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
 
-	Searcher* pSearcher = new ClSearcher();
+	Searcher* pSearcher = new ClSearcher(&dataBase);
 
 	vector<EmployeeInfo> result1 = pSearcher->search(ParserResult({ OPERATION_TYPE::SCH, OPTION1::NONE, OPTION2::L, OPTION3::NONE, "cl", "CL2", "", "" }));
 	EXPECT_EQ(4, result1.size());
@@ -108,15 +108,15 @@ TEST(ClSearchTest, NoOptionTest) {
 }
 
 TEST(PhoneNumberSearchTest, NoOptionTest) {
-	g_DB.clear();
-	g_DB.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
-	g_DB.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
-	g_DB.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
+	vector<EmployeeInfo> dataBase;
+	dataBase.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
+	dataBase.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
+	dataBase.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
 
-	Searcher* pSearcher = new PhoneNumberSearcher();
+	Searcher* pSearcher = new PhoneNumberSearcher(&dataBase);
 
 	vector<EmployeeInfo> result1 = pSearcher->search(ParserResult({ OPERATION_TYPE::SCH, OPTION1::NONE, OPTION2::NONE, OPTION3::NONE, "phoneNum", "010-6855-9852", "", "" }));
 	EXPECT_EQ(1, result1.size());
@@ -128,15 +128,15 @@ TEST(PhoneNumberSearchTest, NoOptionTest) {
 }
 
 TEST(PhoneNumberSearchTest, OptionTest) {
-	g_DB.clear();
-	g_DB.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
-	g_DB.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
-	g_DB.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
+	vector<EmployeeInfo> dataBase;
+	dataBase.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
+	dataBase.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
+	dataBase.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
 
-	Searcher* pSearcher = new PhoneNumberSearcher();
+	Searcher* pSearcher = new PhoneNumberSearcher(&dataBase);
 
 	vector<EmployeeInfo> result1 = pSearcher->search(ParserResult({ OPERATION_TYPE::SCH, OPTION1::NONE, OPTION2::M, OPTION3::NONE, "phoneNum", "4756", "", "" }));
 	EXPECT_EQ(1, result1.size());
@@ -148,15 +148,15 @@ TEST(PhoneNumberSearchTest, OptionTest) {
 }
 
 TEST(BirthdaySearchTest, NoOptionTest) {
-	g_DB.clear();
-	g_DB.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
-	g_DB.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
-	g_DB.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
+	vector<EmployeeInfo> dataBase;
+	dataBase.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
+	dataBase.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
+	dataBase.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
 
-	Searcher* pSearcher = new BirthdaySearcher();
+	Searcher* pSearcher = new BirthdaySearcher(&dataBase);
 
 	vector<EmployeeInfo> result1 = pSearcher->search(ParserResult({ OPERATION_TYPE::SCH, OPTION1::NONE, OPTION2::NONE, OPTION3::NONE, "birthday", "19910415", "", "" }));
 	EXPECT_EQ(1, result1.size());
@@ -168,15 +168,15 @@ TEST(BirthdaySearchTest, NoOptionTest) {
 }
 
 TEST(BirthdaySearchTest, OptionTest) {
-	g_DB.clear();
-	g_DB.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
-	g_DB.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
-	g_DB.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
+	vector<EmployeeInfo> dataBase;
+	dataBase.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
+	dataBase.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
+	dataBase.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
 
-	Searcher* pSearcher = new BirthdaySearcher();
+	Searcher* pSearcher = new BirthdaySearcher(&dataBase);
 
 	vector<EmployeeInfo> result1 = pSearcher->search(ParserResult({ OPERATION_TYPE::SCH, OPTION1::NONE, OPTION2::Y, OPTION3::NONE, "birthday", "1991", "", "" }));
 	EXPECT_EQ(2, result1.size());
@@ -194,13 +194,20 @@ TEST(BirthdaySearchTest, OptionTest) {
 }
 
 TEST(CertiSearchTest, NoOptionTest) {
-	g_DB.clear();
-	g_DB.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
-	g_DB.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
-	g_DB.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
-	g_DB.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
+	vector<EmployeeInfo> dataBase;
+	dataBase.emplace_back(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "17256132", "SHIN JUNHYUCK", "CL2" , "010-2135-1546", "19910526", "EX" }));
+	dataBase.emplace_back(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "14321152", "KIM INSOO", "CL2" , "010-1312-4356", "19910415", "ADV" }));
+	dataBase.emplace_back(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }));
+	dataBase.emplace_back(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }));
 
-	Searcher* pSearcher = new CertiSearcher();
+	Searcher* pSearcher = new CertiSearcher(&dataBase);
+
+	vector<EmployeeInfo> result1 = pSearcher->search(ParserResult({ OPERATION_TYPE::SCH, OPTION1::NONE, OPTION2::Y, OPTION3::NONE, "certi", "PRO", "", "" }));
+	EXPECT_EQ(4, result1.size());
+	EXPECT_TRUE(compareEmployeeInfo(EmployeeInfo({ "18051224", "CHO YEONGCHUL", "CL2" , "010-4198-8858", "19930116", "PRO" }), result1[0]));
+	EXPECT_TRUE(compareEmployeeInfo(EmployeeInfo({ "20031242", "KONG JUNGHOON", "CL2" , "010-4756-9871", "19930821", "PRO" }), result1[1]));
+	EXPECT_TRUE(compareEmployeeInfo(EmployeeInfo({ "12035123", "KIM JONGWON", "CL3" , "010-6855-9852", "19850720", "PRO" }), result1[2]));
+	EXPECT_TRUE(compareEmployeeInfo(EmployeeInfo({ "08051231", "OH SINHO", "CL4" , "010-5563-8744", "19800420", "PRO" }), result1[3]));
 }
