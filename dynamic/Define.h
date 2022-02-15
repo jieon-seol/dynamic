@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <string>
+#include <vector>
 
 enum class OPTION1 { NONE = -1, P, MAX };
 enum class OPTION2 { NONE = -1, Y, M, D, L, F, MAX };
@@ -27,3 +28,5 @@ struct ParserResult {
 
 	EmployeeInfo info;
 };
+
+std::vector<EmployeeInfo> dataBase;
