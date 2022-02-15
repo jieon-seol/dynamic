@@ -18,3 +18,21 @@ TEST(OPERATORTEST, FactoryOperatorTest ) {
 	EXPECT_EQ(FO->createOperator(FakeParserResult), new ModifyOperator());
 }
 
+TEST(OPERATORTEST, AddOperatorTest) {
+
+	Operator* AddOper = new AddOperator();
+	ParserResult FakeParserResult = { OPERATION_TYPE::ADD,
+										OPTION1::NONE,
+										OPTION2::NONE,
+										OPTION3::NONE,
+										std::string(),
+										std::string(),
+										std::string(),
+										std::string(),
+										EmployeeInfo{ "01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO" }
+	};
+
+
+	EXPECT_EQ(AddOper->operate(FakeParserResult), 1);
+
+}
