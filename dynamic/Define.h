@@ -1,8 +1,10 @@
 ﻿#pragma once
 #include <string>
 
-enum OPTION { PRINT_BRIEF, PRINT_DETAIL, LRI };
-enum OPERATION_TYPE { ADD, DEL, SCH, MOD };
+enum class OPTION1 { NONE = -1, P, MAX };
+enum class OPTION2 { NONE = -1, Y, M, D, L, F, MAX };
+enum class OPTION3 { NONE = -1, MAX_OPTION3 };
+enum class OPERATION_TYPE { NONE = -1, ADD, DEL, SCH, MOD, MAX };
 
 struct EmployeeInfo {
 	std::string employeeNum;
