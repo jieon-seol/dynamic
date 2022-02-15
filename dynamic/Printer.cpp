@@ -1,4 +1,5 @@
 #include "printer.h"
+#include <algorithm>
 
 namespace {
 	bool isValidOperationType(OPERATION_TYPE op_type) {
@@ -32,9 +33,32 @@ namespace {
 		result += employee.certi;
 		return result;
 	}
+
+	void UpdateYearOfEmployeeNum(std::string& employeeNum) {
+		if (employeeNum.front() == '6' || employeeNum.front() == '7' || employeeNum.front() == '8' || employeeNum.front() == '9') {
+			employeeNum = "19" + employeeNum;
+		}
+		else {
+			employeeNum = "20" + employeeNum;
+		}
+	}
+
+	bool EmployeeCompare(const EmployeeInfo& employee1, const EmployeeInfo& employee2) {
+		std::string employeeNum1 = employee1.employeeNum;
+		std::string employeeNum2 = employee2.employeeNum;
+		UpdateYearOfEmployeeNum(employeeNum1);
+		UpdateYearOfEmployeeNum(employeeNum2);
+		return std::stoi(employeeNum1) < std::stoi(employeeNum2);
+	}
+
+	std::vector<EmployeeInfo> Sort(const std::vector<EmployeeInfo>& targetEmployees) {
+		std::vector<EmployeeInfo> newEmployeeList = targetEmployees;
+		sort(newEmployeeList.begin(), newEmployeeList.end(), EmployeeCompare);
+		return newEmployeeList;
+	}
 }
 
-std::string Printer::getPrintString(const ParserResult& parserResult, const std::vector<EmployeeInfo>& targetEmployees)
+std::string Printer::GetPrintString(const ParserResult& parserResult, const std::vector<EmployeeInfo>& targetEmployees)
 {
 	std::string result;
 
@@ -54,7 +78,9 @@ std::string Printer::getPrintString(const ParserResult& parserResult, const std:
 		return result;
 	}
 
-	for (const auto& employee : targetEmployees) {
+	auto newEmployeeList = Sort(targetEmployees);
+
+	for (const auto& employee : newEmployeeList) {
 		result += OperationTypeToString(parserResult) + ",";
 		result += EmployeeInfoToString(employee);
 		result += "\n";

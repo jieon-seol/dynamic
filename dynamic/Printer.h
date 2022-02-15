@@ -4,5 +4,5 @@
 
 class Printer {
 public:
-	static std::string getPrintString(const ParserResult& parserResult, const std::vector<EmployeeInfo>& targetEmployees);
+	static std::string GetPrintString(const ParserResult& parserResult, const std::vector<EmployeeInfo>& targetEmployees);
 };
