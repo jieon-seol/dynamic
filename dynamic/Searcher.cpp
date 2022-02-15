@@ -74,3 +74,13 @@ string NameSearcher::getNameByOption(string name, OPTION2 option) {
 		; // Error
 	}
 }
+
+vector<EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) {
+	vector<EmployeeInfo> result;
+	for (auto info : g_DB) {
+		if (parserResult.searchData.compare(info.cl) == 0) {
+			result.emplace_back(info);
+		}
+	}
+	return result;
+}

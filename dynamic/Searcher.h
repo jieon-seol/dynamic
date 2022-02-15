@@ -25,7 +25,7 @@ public:
 
 class ClSearcher : public Searcher {
 public:
-	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override { return vector<EmployeeInfo>(); };
+	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override;
 };
 
 class PhoneNumberSearcher : public Searcher {
