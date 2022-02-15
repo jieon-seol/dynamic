@@ -3,16 +3,14 @@
 
 enum OPTION { PRINT_BRIEF, PRINT_DETAIL, LRI };
 enum OPERATION_TYPE { ADD, DEL, SCH, MOD };
-enum CAREER_LEVEL { CL1, CL2, CL3, CL4 };
-enum CERTI_LEVEL { ADV, PRO, EX };
 
 struct EmployeeInfo {
-	int employeeNum;
+	std::string employeeNum;
 	std::string name;
-	CAREER_LEVEL cl;
-	int phoneNum;
-	int birthday;
-	CERTI_LEVEL certi;
+	std::string cl;
+	std::string phoneNum;
+	std::string birthday;
+	std::string certi;
 };
 
 struct ParserResult {
