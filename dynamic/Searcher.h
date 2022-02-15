@@ -20,7 +20,7 @@ public:
 class NameSearcher : public Searcher {
 public:
 	string getNameByOption(string name, OPTION2 option);
-	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override { return vector<EmployeeInfo>(); };
+	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override;
 };
 
 class ClSearcher : public Searcher {
