@@ -37,7 +37,7 @@ public:
 class BirthdaySearcher : public Searcher {
 public:
 	string getBirthDayByOption(string birthDay, OPTION2 birthOption);
-	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override { return vector<EmployeeInfo>(); };
+	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override;
 };
 
 class CertiSearcher : public Searcher {
