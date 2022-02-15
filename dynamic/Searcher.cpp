@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <assert.h>
 #include "Define.h"
 #include "Searcher.h"
 
@@ -24,8 +25,8 @@ vector<string> splitString(const string& targetStr, char delimiter) {
 }
 
 vector<EmployeeInfo> EmployeeNumSearcher::search(const ParserResult& parserResult) {
-	if (parserResult.searchColumn.compare("employeeNum")) { 
-		;// Error
+	if (parserResult.searchColumn.compare("employeeNum")) {
+		assert(false);
 	}
 
 	vector<EmployeeInfo> result;
@@ -40,7 +41,7 @@ vector<EmployeeInfo> EmployeeNumSearcher::search(const ParserResult& parserResul
 
 vector<EmployeeInfo> NameSearcher::search(const ParserResult& parserResult) {
 	if (parserResult.searchColumn.compare("name")) {
-		;// Error
+		assert(false);
 	}
 
 	string searchName = parserResult.searchData;
@@ -76,6 +77,10 @@ string NameSearcher::getNameByOption(string name, OPTION2 option) {
 }
 
 vector<EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) {
+	if (parserResult.searchColumn.compare("cl")) {
+		assert(false);
+	}
+
 	vector<EmployeeInfo> result;
 	for (auto info : g_DB) {
 		if (parserResult.searchData.compare(info.cl) == 0) {
@@ -105,6 +110,10 @@ string PhoneNumberSearcher::getNumberByOption(string phoneNumber, OPTION2 number
 }
 
 vector<EmployeeInfo> PhoneNumberSearcher::search(const ParserResult& parserResult) {
+	if (parserResult.searchColumn.compare("phoneNum")) {
+		assert(false);
+	}
+
 	string searchNumber = parserResult.searchData;
 	OPTION2 numberOption = parserResult.option2;
 	vector<EmployeeInfo> result;
@@ -116,4 +125,36 @@ vector<EmployeeInfo> PhoneNumberSearcher::search(const ParserResult& parserResul
 	}
 
 	return result;
+}
+
+vector<EmployeeInfo> BirthdaySearcher::search(const ParserResult& parserResult) {
+	if (parserResult.searchColumn.compare("birthday")) {
+		assert(false);
+	}
+
+	string searchBirth = parserResult.searchData;
+	OPTION2 birthOption = parserResult.option2;
+	vector<EmployeeInfo> result;
+
+	for (auto info : g_DB) {
+		if (searchBirth.compare(getBirthDayByOption(info.birthday, birthOption)) == 0) {
+			result.emplace_back(info);
+		}
+	}
+
+	return result;
+}
+
+string BirthdaySearcher::getBirthDayByOption(string birthDay, OPTION2 birthOption) {
+	if (birthOption == OPTION2::NONE) return birthDay;
+
+	if (birthOption == OPTION2::Y) {
+		return birthDay.substr(0, 4);
+	}
+	else if (birthOption == OPTION2::M) {
+		return birthDay.substr(4, 2);
+	}
+	else if (birthOption == OPTION2::D) {
+		return birthDay.substr(6, 2);
+	}
 }
