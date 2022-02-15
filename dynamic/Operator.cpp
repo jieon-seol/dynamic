@@ -2,11 +2,13 @@
 
 
 void Operator::addDataBase(EmployeeInfo employeeInfo) {
-	dataBase.emplace_back(employeeInfo);
+	pdataBase->emplace_back(employeeInfo);
 }
 
 
 void AddOperator::operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) {
+	pdataBase = pDb;
+	addDataBase(parserResult.info);
 	return;
 }
 
@@ -33,8 +35,6 @@ FactoryOperator::FactoryOperator() {
 }
 
 Operator* FactoryOperator::getOperator(ParserResult& parserResult) {
-
-
 	Operator* retOperator = nullptr;
 	switch (parserResult.operationType)
 	{

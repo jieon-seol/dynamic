@@ -31,8 +31,13 @@ TEST(OPERATORTEST, AddOperatorTest) {
 										std::string(),
 										EmployeeInfo{ "01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO" }
 	};
+	std::vector<EmployeeInfo> dataBase;
 
-
-	EXPECT_EQ(AddOper->operate(FakeParserResult), 1);
+	EXPECT_EQ(dataBase.size(),0);
+	AddOper->operate(&dataBase, FakeParserResult);
+	EXPECT_EQ(dataBase.size(), 1);
+	for (const auto& employee : dataBase) {
+		EXPECT_EQ(employee.employeeNum, "01122329");
+	}
 
 }

@@ -7,8 +7,8 @@ public:
 	virtual ~Operator() {};
 	virtual void operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) = 0;
 	void addDataBase(EmployeeInfo employeeInfo);
-private:
-	std::vector<EmployeeInfo> dataBase;
+protected:
+	std::vector<EmployeeInfo>* pdataBase;
 };
 
 
