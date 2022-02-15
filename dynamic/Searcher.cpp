@@ -7,9 +7,9 @@
 
 using namespace std;
 
-vector<EmployeeInfo> g_DB;
+vector<EmployeeInfo> g_Db;
 
-vector<string> splitString(const string& targetStr, char delimiter) {
+vector<string> splitString(const string& targetStr, const char delimiter) {
 	vector<string> subStringVector;
 	size_t previous = 0;
 	size_t current = targetStr.find(delimiter);
@@ -30,7 +30,7 @@ vector<EmployeeInfo> EmployeeNumSearcher::search(const ParserResult& parserResul
 	}
 
 	vector<EmployeeInfo> result;
-	for (auto info : g_DB) {
+	for (auto info : (*pDb_)) {
 		if (parserResult.searchData.compare(info.employeeNum) == 0) {
 			result.emplace_back(info);
 			return result;
@@ -48,7 +48,7 @@ vector<EmployeeInfo> NameSearcher::search(const ParserResult& parserResult) {
 	OPTION2 nameOption = parserResult.option2;
 	vector<EmployeeInfo> result;
 
-	for (auto info : g_DB) {
+	for (auto info : (*pDb_)) {
 		if (searchName.compare(getNameByOption(info.name, nameOption)) == 0) {
 			result.emplace_back(info);
 		}
@@ -57,23 +57,25 @@ vector<EmployeeInfo> NameSearcher::search(const ParserResult& parserResult) {
 	return result;
 }
 
-string NameSearcher::getNameByOption(string name, OPTION2 option) {
-	if (option == OPTION2::NONE) return name;
+string NameSearcher::getNameByOption(const string& name, const OPTION2 option) {
+	if (option == OPTION2::NONE) {
+		return name;
+	}
 
 	vector<string> subStr = splitString(name, ' ');
 	if (subStr.size() != 2) {
-		;// Error
+		assert(false);
 	}
 
 	if (option == OPTION2::L) {
 		return subStr[0];
 	}
-	else if (option == OPTION2::F) {
+
+	if (option == OPTION2::F) {
 		return subStr[1];
 	}
-	else {
-		; // Error
-	}
+	
+	assert(false);
 }
 
 vector<EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) {
@@ -82,7 +84,7 @@ vector<EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) {
 	}
 
 	vector<EmployeeInfo> result;
-	for (auto info : g_DB) {
+	for (auto info : (*pDb_)) {
 		if (parserResult.searchData.compare(info.cl) == 0) {
 			result.emplace_back(info);
 		}
@@ -90,23 +92,25 @@ vector<EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) {
 	return result;
 }
 
-string PhoneNumberSearcher::getNumberByOption(string phoneNumber, OPTION2 numberOption) {
-	if (numberOption == OPTION2::NONE) return phoneNumber;
+string PhoneNumberSearcher::getNumberByOption(const string& phoneNumber, const OPTION2 numberOption) {
+	if (numberOption == OPTION2::NONE) {
+		return phoneNumber;
+	}
 
 	vector<string> subStr = splitString(phoneNumber, '-');
 	if (subStr.size() != 3) {
-		;// Error
+		assert(false);
 	}
 
 	if (numberOption == OPTION2::M) {
 		return subStr[1];
 	}
-	else if (numberOption == OPTION2::L) {
+	
+	if (numberOption == OPTION2::L) {
 		return subStr[2];
 	}
-	else {
-		; // Error
-	}
+
+	assert(false);
 }
 
 vector<EmployeeInfo> PhoneNumberSearcher::search(const ParserResult& parserResult) {
@@ -118,7 +122,7 @@ vector<EmployeeInfo> PhoneNumberSearcher::search(const ParserResult& parserResul
 	OPTION2 numberOption = parserResult.option2;
 	vector<EmployeeInfo> result;
 
-	for (auto info : g_DB) {
+	for (auto info : (*pDb_)) {
 		if (searchNumber.compare(getNumberByOption(info.phoneNum, numberOption)) == 0) {
 			result.emplace_back(info);
 		}
@@ -136,7 +140,7 @@ vector<EmployeeInfo> BirthdaySearcher::search(const ParserResult& parserResult) 
 	OPTION2 birthOption = parserResult.option2;
 	vector<EmployeeInfo> result;
 
-	for (auto info : g_DB) {
+	for (auto info : (*pDb_)) {
 		if (searchBirth.compare(getBirthDayByOption(info.birthday, birthOption)) == 0) {
 			result.emplace_back(info);
 		}
@@ -145,7 +149,7 @@ vector<EmployeeInfo> BirthdaySearcher::search(const ParserResult& parserResult) 
 	return result;
 }
 
-string BirthdaySearcher::getBirthDayByOption(string birthDay, OPTION2 birthOption) {
+string BirthdaySearcher::getBirthDayByOption(const string& birthDay, const OPTION2 birthOption) {
 	if (birthOption == OPTION2::NONE) return birthDay;
 
 	if (birthOption == OPTION2::Y) {
@@ -157,4 +161,19 @@ string BirthdaySearcher::getBirthDayByOption(string birthDay, OPTION2 birthOptio
 	else if (birthOption == OPTION2::D) {
 		return birthDay.substr(6, 2);
 	}
+}
+
+vector<EmployeeInfo> CertiSearcher::search(const ParserResult& parserResult) {
+	if (parserResult.searchColumn.compare("certi")) {
+		assert(false);
+	}
+
+	vector<EmployeeInfo> result;
+	for (auto info : (*pDb_)) {
+		if (parserResult.searchData.compare(info.certi) == 0) {
+			result.emplace_back(info);
+		}
+	}
+
+	return result;
 }

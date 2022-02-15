@@ -5,42 +5,49 @@
 
 using namespace std;
 
-extern vector<EmployeeInfo> g_DB;
-
 class Searcher {
 public:
+	Searcher(vector<EmployeeInfo>* pDb) : pDb_(pDb) {}
 	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) = 0;
+protected:
+	vector<EmployeeInfo>* pDb_;
 };
 
 class EmployeeNumSearcher : public Searcher {
 public:
+	EmployeeNumSearcher(vector<EmployeeInfo>* pDb) : Searcher(pDb) {}
 	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override;
 };
 
 class NameSearcher : public Searcher {
 public:
-	string getNameByOption(string name, OPTION2 option);
+	NameSearcher(vector<EmployeeInfo>* pDb) : Searcher(pDb) {}
+	string getNameByOption(const string& name, const OPTION2 option);
 	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override;
 };
 
 class ClSearcher : public Searcher {
 public:
+	ClSearcher(vector<EmployeeInfo>* pDb) : Searcher(pDb) {}
 	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override;
 };
 
 class PhoneNumberSearcher : public Searcher {
 public:
-	string getNumberByOption(string phoneNumber, OPTION2 numberOption);
+	PhoneNumberSearcher(vector<EmployeeInfo>* pDb) : Searcher(pDb) {}
+	string getNumberByOption(const string& phoneNumber, const OPTION2 numberOption);
 	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override;
 };
 
 class BirthdaySearcher : public Searcher {
 public:
-	string getBirthDayByOption(string birthDay, OPTION2 birthOption);
+	BirthdaySearcher(vector<EmployeeInfo>* pDb) : Searcher(pDb) {}
+	string getBirthDayByOption(const string& birthDay, const OPTION2 birthOption);
 	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override;
 };
 
 class CertiSearcher : public Searcher {
 public:
-	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override { return vector<EmployeeInfo>(); };
+	CertiSearcher(vector<EmployeeInfo>* pDb) : Searcher(pDb) {}
+	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override;
 };
