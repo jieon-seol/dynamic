@@ -14,30 +14,33 @@ public:
 
 class EmployeeNumSearcher : public Searcher {
 public:
-	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override {};
+	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override;
 };
 
 class NameSearcher : public Searcher {
 public:
-	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override {};
+	string getNameByOption(string name, OPTION2 option);
+	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override { return vector<EmployeeInfo>(); };
 };
 
 class ClSearcher : public Searcher {
 public:
-	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override {};
+	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override { return vector<EmployeeInfo>(); };
 };
 
 class PhoneNumberSearcher : public Searcher {
 public:
-	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override {};
+	string getNumberByOption(string phoneNumber, OPTION2 numberOption);
+	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override { return vector<EmployeeInfo>(); };
 };
 
 class BirthdaySearcher : public Searcher {
 public:
-	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override {};
+	string getBirthDayByOption(string birthDay, OPTION2 birthOption);
+	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override { return vector<EmployeeInfo>(); };
 };
 
 class CertiSearcher : public Searcher {
 public:
-	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override {};
+	virtual vector<EmployeeInfo> search(const ParserResult& parserResult) override { return vector<EmployeeInfo>(); };
 };
