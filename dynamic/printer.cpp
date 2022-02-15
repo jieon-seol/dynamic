@@ -21,5 +21,9 @@ std::string Printer::getPrintString(const ParserResult& parserResult, const std:
 		return result;
 	}
 
+	if (parserResult.option1 == OPTION1::NONE) {
+		result += std::to_string(targetEmployees.size());
+		return result;
+	}
 	return result;
 }
