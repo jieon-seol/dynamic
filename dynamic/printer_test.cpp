@@ -41,3 +41,36 @@ TEST(Printer, BriefPrintTest) {
 	empty_result.operationType = OPERATION_TYPE::MOD;
 	EXPECT_EQ(Printer::getPrintString(empty_result, employees), "MOD,3");
 }
+
+TEST(Printer, DetailPrintTest) {
+	std::vector<EmployeeInfo> employees;
+	employees.push_back(EmployeeInfo{ "91351446", "LIM PNQN", "CL3", "010-6094-6223", "19700122", "PRO" });
+	employees.push_back(EmployeeInfo{ "93916535", "JANG YHFQ", "CL3", "010-1509-9243", "19580525", "PRO" });
+	employees.push_back(EmployeeInfo{ "07843022", "SEO KFI", "CL3", "010-4837-6716", "19810630", "ADV" });
+
+	ParserResult empty_result;
+	empty_result.option1 = OPTION1::P;
+	empty_result.operationType = OPERATION_TYPE::ADD;
+	EXPECT_EQ(Printer::getPrintString(empty_result, employees), "");
+
+	empty_result.operationType = OPERATION_TYPE::DEL;
+	EXPECT_EQ(Printer::getPrintString(empty_result, employees),
+		"DEL,91351446,LIM PNQN,CL3,010-6094-6223,19700122,PRO\n\
+DEL,93916535,JANG YHFQ,CL3,010-1509-9243,19580525,PRO\n\
+DEL,07843022,SEO KFI,CL3,010-4837-6716,19810630,ADV\n"
+	);
+
+	empty_result.operationType = OPERATION_TYPE::SCH;
+	EXPECT_EQ(Printer::getPrintString(empty_result, employees),
+		"SCH,91351446,LIM PNQN,CL3,010-6094-6223,19700122,PRO\n\
+SCH,93916535,JANG YHFQ,CL3,010-1509-9243,19580525,PRO\n\
+SCH,07843022,SEO KFI,CL3,010-4837-6716,19810630,ADV\n"
+	);
+
+	empty_result.operationType = OPERATION_TYPE::MOD;
+	EXPECT_EQ(Printer::getPrintString(empty_result, employees),
+		"MOD,91351446,LIM PNQN,CL3,010-6094-6223,19700122,PRO\n\
+MOD,93916535,JANG YHFQ,CL3,010-1509-9243,19580525,PRO\n\
+MOD,07843022,SEO KFI,CL3,010-4837-6716,19810630,ADV\n"
+	);
+}
