@@ -1,37 +1,40 @@
 #include "Operator.h"
 
 
-void Operator::addDataBase(EmployeeInfo employeeInfo) {
-	pdataBase->emplace_back(employeeInfo);
+void AddOperator::operate(std::vector<EmployeeInfo>* pSearchedDb, ParserResult& parserResult) {
+	if (pSearchedDb->size() == ALREADY_INCLUDED_DATABASE) {
+		throw std::invalid_argument("ERROR: Already included database");
+		return;
+	}
+	addDataBase((*pSearchedDb)[0]);
+	return;
 }
 
-
-void AddOperator::operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) {
-	pdataBase = pDb;
-	addDataBase(parserResult.info);
+void AddOperator::addDataBase(EmployeeInfo inputEmployeeInfo) {
+	pdataBase_->emplace_back(inputEmployeeInfo);
 	return;
 }
 
 
-void DeleteOperator::operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) {
+void DeleteOperator::operate(std::vector<EmployeeInfo>* pSearchedDb, ParserResult& parserResult) {
 	return;
 }
 
 
-void SearchOperator::operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) {
+void SearchOperator::operate(std::vector<EmployeeInfo>* pSearchedDb, ParserResult& parserResult) {
 	return;
 }
 
 
-void ModifyOperator::operate(std::vector<EmployeeInfo>* pDb, ParserResult parserResult) {
+void ModifyOperator::operate(std::vector<EmployeeInfo>* pSearchedDb, ParserResult& parserResult) {
 	return;
 }
 
-FactoryOperator::FactoryOperator() {
-	pAddOperator_ = new AddOperator();
-	pDeleteOperator_ = new DeleteOperator();
-	pSearchOperator_ = new SearchOperator();
-	pModifyOperator_ = new ModifyOperator();
+FactoryOperator::FactoryOperator(std::vector<EmployeeInfo>* pDb) {
+	pAddOperator_ = new AddOperator(pDb);
+	pDeleteOperator_ = new DeleteOperator(pDb);
+	pSearchOperator_ = new SearchOperator(pDb);
+	pModifyOperator_ = new ModifyOperator(pDb);
 }
 
 Operator* FactoryOperator::getOperator(ParserResult& parserResult) {
