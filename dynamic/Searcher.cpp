@@ -24,7 +24,7 @@ namespace {
 
 vector<EmployeeInfo> EmployeeNumSearcher::search(const ParserResult& parserResult) const {
 	vector<EmployeeInfo> result;
-	for (auto info : (*pDataBase_)) {
+	for (const auto& info : (*pDataBase_)) {
 		if (parserResult.searchData == info.employeeNum) {
 			result.emplace_back(info);
 			return result;
@@ -38,7 +38,7 @@ vector<EmployeeInfo> NameSearcher::search(const ParserResult& parserResult) cons
 	OPTION2 nameOption = parserResult.option2;
 	vector<EmployeeInfo> result;
 
-	for (auto info : (*pDataBase_)) {
+	for (const auto& info : (*pDataBase_)) {
 		if (searchName == filterData(info.name, nameOption)) {
 			result.emplace_back(info);
 		}
@@ -70,7 +70,7 @@ string NameSearcher::filterData(const string& name, const OPTION2 nameOption) co
 
 vector<EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) const {
 	vector<EmployeeInfo> result;
-	for (auto info : (*pDataBase_)) {
+	for (const auto& info : (*pDataBase_)) {
 		if (parserResult.searchData == info.cl) {
 			result.emplace_back(info);
 		}
@@ -83,7 +83,7 @@ vector<EmployeeInfo> PhoneNumberSearcher::search(const ParserResult& parserResul
 	OPTION2 numberOption = parserResult.option2;
 	vector<EmployeeInfo> result;
 
-	for (auto info : (*pDataBase_)) {
+	for (const auto& info : (*pDataBase_)) {
 		if (searchNumber == filterData(info.phoneNum, numberOption)) {
 			result.emplace_back(info);
 		}
@@ -118,7 +118,7 @@ vector<EmployeeInfo> BirthdaySearcher::search(const ParserResult& parserResult) 
 	OPTION2 birthOption = parserResult.option2;
 	vector<EmployeeInfo> result;
 
-	for (auto info : (*pDataBase_)) {
+	for (const auto& info : (*pDataBase_)) {
 		if (searchBirth == filterData(info.birthday, birthOption)) {
 			result.emplace_back(info);
 		}
@@ -146,7 +146,7 @@ string BirthdaySearcher::filterData(const string& birthDay, const OPTION2 birthO
 vector<EmployeeInfo> CertiSearcher::search(const ParserResult& parserResult) const {
 	vector<EmployeeInfo> result;
 
-	for (auto info : (*pDataBase_)) {
+	for (const auto& info : (*pDataBase_)) {
 		if (parserResult.searchData == info.certi) {
 			result.emplace_back(info);
 		}
