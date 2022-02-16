@@ -35,6 +35,28 @@ void SearchOperator::operate(std::vector<EmployeeInfo>* pSearchedDb, ParserResul
 
 
 void ModifyOperator::operate(std::vector<EmployeeInfo>* pSearchedDb, ParserResult& parserResult) {
+	for (const auto& searchedInfo : *pSearchedDb) {
+		for (auto& dataBaseInfo : *pdataBase_) {
+			if (dataBaseInfo.employeeNum != searchedInfo.employeeNum) continue;
+
+			if (parserResult.changeColumn == "name") {
+				dataBaseInfo.name = parserResult.changeData;
+			}
+			else if (parserResult.changeColumn == "cl") {
+				dataBaseInfo.cl = parserResult.changeData;
+			}
+			else if (parserResult.changeColumn == "phoneNum") {
+				dataBaseInfo.phoneNum = parserResult.changeData;
+			}
+			else if (parserResult.changeColumn == "birthday") {
+				dataBaseInfo.birthday = parserResult.changeData;
+			}
+			else if (parserResult.changeColumn == "certi") {
+				dataBaseInfo.certi = parserResult.changeData;
+			}
+			break;
+		}
+	}
 	return;
 }
 
