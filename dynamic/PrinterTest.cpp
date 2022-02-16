@@ -12,13 +12,13 @@ TEST(Printer, EmptyTest) {
 	EXPECT_EQ(Printer::GetPrintString(empty_result, std::vector<EmployeeInfo>()), "");
 
 	empty_result.operationType = OPERATION_TYPE::DEL;
-	EXPECT_EQ(Printer::GetPrintString(empty_result, std::vector<EmployeeInfo>()), "DEL,NONE");
+	EXPECT_EQ(Printer::GetPrintString(empty_result, std::vector<EmployeeInfo>()), "DEL,NONE\n");
 
 	empty_result.operationType = OPERATION_TYPE::SCH;
-	EXPECT_EQ(Printer::GetPrintString(empty_result, std::vector<EmployeeInfo>()), "SCH,NONE");
+	EXPECT_EQ(Printer::GetPrintString(empty_result, std::vector<EmployeeInfo>()), "SCH,NONE\n");
 
 	empty_result.operationType = OPERATION_TYPE::MOD;
-	EXPECT_EQ(Printer::GetPrintString(empty_result, std::vector<EmployeeInfo>()), "MOD,NONE");
+	EXPECT_EQ(Printer::GetPrintString(empty_result, std::vector<EmployeeInfo>()), "MOD,NONE\n");
 }
 
 TEST(Printer, BriefPrintTest) {
@@ -33,13 +33,13 @@ TEST(Printer, BriefPrintTest) {
 	EXPECT_EQ(Printer::GetPrintString(empty_result, employees), "");
 
 	empty_result.operationType = OPERATION_TYPE::DEL;
-	EXPECT_EQ(Printer::GetPrintString(empty_result, employees), "DEL,3");
+	EXPECT_EQ(Printer::GetPrintString(empty_result, employees), "DEL,3\n");
 
 	empty_result.operationType = OPERATION_TYPE::SCH;
-	EXPECT_EQ(Printer::GetPrintString(empty_result, employees), "SCH,3");
+	EXPECT_EQ(Printer::GetPrintString(empty_result, employees), "SCH,3\n");
 
 	empty_result.operationType = OPERATION_TYPE::MOD;
-	EXPECT_EQ(Printer::GetPrintString(empty_result, employees), "MOD,3");
+	EXPECT_EQ(Printer::GetPrintString(empty_result, employees), "MOD,3\n");
 }
 
 TEST(Printer, DetailPrintTest) {
