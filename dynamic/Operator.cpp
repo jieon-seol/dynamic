@@ -17,6 +17,14 @@ void AddOperator::addDataBase(EmployeeInfo inputEmployeeInfo) {
 
 
 void DeleteOperator::operate(std::vector<EmployeeInfo>* pSearchedDb, ParserResult& parserResult) {
+	for (const auto& searchedInfo : *pSearchedDb) {
+		for (unsigned int i = 0; i < (*pdataBase_).size(); i++) {
+			if ((*pdataBase_)[i].employeeNum == searchedInfo.employeeNum) {
+				pdataBase_->erase((*pdataBase_).begin() + i);
+				break;
+			}
+		}
+	}
 	return;
 }
 
