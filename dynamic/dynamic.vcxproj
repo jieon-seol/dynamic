@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="Define.h" />
     <ClInclude Include="Parser.h" />
+    <ClInclude Include="Printer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -149,6 +150,8 @@
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="ParserTest.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="Printer.cpp" />
+    <ClCompile Include="PrinterTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

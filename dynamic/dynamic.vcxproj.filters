@@ -22,6 +22,7 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Parser.h">
+    <ClInclude Include="Printer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,7 +30,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test.cpp">
+    <ClCompile Include="PrinterTest.cpp">
       <Filter>소스 파일\UnitTest</Filter>
     </ClCompile>
     <ClCompile Include="Parser.cpp">
@@ -37,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="ParserTest.cpp">
       <Filter>소스 파일\UnitTest</Filter>
+    </ClCompile>
+    <ClCompile Include="Printer.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
