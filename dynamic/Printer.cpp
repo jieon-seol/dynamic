@@ -68,13 +68,14 @@ std::string Printer::GetPrintString(const ParserResult& parserResult, const std:
 
 	if (targetEmployees.empty()) {
 		result += OperationTypeToString(parserResult) + ",";
-		result += "NONE";
+		result += "NONE\n";
 		return result;
 	}
 
 	if (parserResult.option1 == OPTION1::NONE) {
 		result += OperationTypeToString(parserResult) + ",";
 		result += std::to_string(targetEmployees.size());
+		result += "\n";
 		return result;
 	}
 
