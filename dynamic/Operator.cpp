@@ -6,11 +6,11 @@ void AddOperator::operate(const std::vector<EmployeeInfo>* pSearchedDb, const Pa
 		throw std::invalid_argument("ERROR: Already included database");
 		return;
 	}
-	addDataBase((*pSearchedDb)[0]);
+	addDataBase(parserResult.info);
 	return;
 }
 
-void AddOperator::addDataBase(EmployeeInfo inputEmployeeInfo) {
+void AddOperator::addDataBase(const EmployeeInfo& inputEmployeeInfo) {
 	pdataBase_->emplace_back(inputEmployeeInfo);
 	return;
 }
