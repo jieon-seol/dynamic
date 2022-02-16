@@ -81,7 +81,9 @@ std::string Printer::GetPrintString(const ParserResult& parserResult, const std:
 
 	auto newEmployeeList = Sort(targetEmployees);
 
-	for (const auto& employee : newEmployeeList) {
+	constexpr int MAX_PRINT_RECORD = 5;
+	for (int i = 0; i < MAX_PRINT_RECORD && i < newEmployeeList.size(); ++i){
+		const auto& employee = newEmployeeList[i];
 		result += OperationTypeToString(parserResult) + ",";
 		result += EmployeeInfoToString(employee);
 		result += "\n";
