@@ -100,7 +100,8 @@ struct ParserResult Parser::parse(string queryStirng) {
 			result.info.phoneNum = parseData(words[7], INFO_TYPE::phoneNum);
 			result.info.birthday = parseData(words[8], INFO_TYPE::birthday);
 			result.info.certi = parseData(words[9], INFO_TYPE::certi);
-
+			result.searchColumn = "employeeNum";
+			result.searchData = result.info.employeeNum;
 			break;
 		case OPERATION_TYPE::DEL:
 		case OPERATION_TYPE::SCH:
