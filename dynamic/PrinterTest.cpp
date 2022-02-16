@@ -112,3 +112,24 @@ MOD,07843022,SEO KFI,CL3,010-4837-6716,19810630,ADV\n\
 MOD,18050301,KIM JANG,CL2,010-2317-6311,19940330,EX\n"
 );
 }
+
+TEST(Printer, DetailPrintBiggerThanFiveTest) {
+	std::vector<EmployeeInfo> employees;
+	employees.push_back(EmployeeInfo{ "07843022", "SEO KFI", "CL3", "010-4837-6716", "19810630", "ADV" });
+	employees.push_back(EmployeeInfo{ "91351446", "LIM PNQN", "CL3", "010-6094-6223", "19700122", "PRO" });
+	employees.push_back(EmployeeInfo{ "18050301", "KIM JANG", "CL2", "010-2317-6311", "19940330", "EX" });
+	employees.push_back(EmployeeInfo{ "01122329", "DN WD", "CL4", "010-7174-5680", "20071117", "PRO" });
+	employees.push_back(EmployeeInfo{ "08108827", "RTAH VNUP", "CL3", "010-9031-2726", "19780417", "ADV" });
+	employees.push_back(EmployeeInfo{ "85125741", "FBAH RTIJ", "CL1", "010-8900-1478", "19780228", "ADV" });
+
+	ParserResult empty_result;
+	empty_result.option1 = OPTION1::P;
+
+	empty_result.operationType = OPERATION_TYPE::SCH;
+	EXPECT_EQ(Printer::GetPrintString(empty_result, employees),
+		"SCH,85125741,FBAH RTIJ,CL1,010-8900-1478,19780228,ADV\n\
+SCH,91351446,LIM PNQN,CL3,010-6094-6223,19700122,PRO\n\
+SCH,01122329,DN WD,CL4,010-7174-5680,20071117,PRO\n\
+SCH,07843022,SEO KFI,CL3,010-4837-6716,19810630,ADV\n\
+SCH,08108827,RTAH VNUP,CL3,010-9031-2726,19780417,ADV\n");
+}
