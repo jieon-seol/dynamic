@@ -57,11 +57,11 @@ string NameSearcher::filterData(const string& name, const OPTION2 nameOption) co
 		throw invalid_argument("ERROR: Invalid Name");
 	}
 
-	if (nameOption == OPTION2::L) {
+	if (nameOption == OPTION2::F) {
 		return subName[0];
 	}
 
-	if (nameOption == OPTION2::F) {
+	if (nameOption == OPTION2::L) {
 		return subName[1];
 	}
 
