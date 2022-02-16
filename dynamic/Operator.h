@@ -7,7 +7,7 @@ class Operator {
 public:
 	Operator(std::vector<EmployeeInfo>* pDb) :pdataBase_(pDb) {};
 	virtual ~Operator() {};
-	virtual void operate(std::vector<EmployeeInfo>* pSearchDb, ParserResult& parserResult) = 0;
+	virtual void operate(const std::vector<EmployeeInfo>* pSearchDb, const ParserResult& parserResult) = 0;
 	
 protected:
 	std::vector<EmployeeInfo>* pdataBase_;
@@ -17,26 +17,27 @@ protected:
 class AddOperator : public Operator {
 public:
 	AddOperator(std::vector<EmployeeInfo>* pDb) :Operator(pDb) {};
-	void operate(std::vector<EmployeeInfo>* pSearchedDb, ParserResult& parserResult) override;
+	void operate(const std::vector<EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) override;
+private:
 	void addDataBase(EmployeeInfo inputEmployeeInfo);
 };
 
 class DeleteOperator : public Operator {
 public:
 	DeleteOperator(std::vector<EmployeeInfo>* pDb) :Operator(pDb) {};
-	void operate(std::vector<EmployeeInfo>* pSearchedDb, ParserResult& parserResult) override;
+	void operate(const std::vector<EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) override;
 };
 
 class SearchOperator : public Operator {
 public:
 	SearchOperator(std::vector<EmployeeInfo>* pDb) :Operator(pDb) {};
-	void operate(std::vector<EmployeeInfo>* pSearchedDb, ParserResult& parserResult) override;
+	void operate(const std::vector<EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) override;
 };
 
 class ModifyOperator : public Operator {
 public:
 	ModifyOperator(std::vector<EmployeeInfo>* pDb) :Operator(pDb) {};
-	void operate(std::vector<EmployeeInfo>* pSearchedDb, ParserResult& parserResult) override;
+	void operate(const std::vector<EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) override;
 };
 
 
