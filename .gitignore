@@ -348,3 +348,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+dynamic/dynamic.vcxproj
+dynamic/packages.config
+dynamic/dynamic.vcxproj.filters
