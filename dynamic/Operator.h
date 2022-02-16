@@ -1,7 +1,7 @@
 #include "Define.h"
 #include <iostream>
 #include <vector>
-#define ALREADY_INCLUDED_DATABASE 0
+#define ALREADY_INCLUDED_DATABASE 1
 
 class Operator {
 public:
@@ -19,7 +19,7 @@ public:
 	AddOperator(std::vector<EmployeeInfo>* pDb) :Operator(pDb) {};
 	void operate(const std::vector<EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) override;
 private:
-	void addDataBase(EmployeeInfo inputEmployeeInfo);
+	void addDataBase(const EmployeeInfo& inputEmployeeInfo);
 };
 
 class DeleteOperator : public Operator {
