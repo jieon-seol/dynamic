@@ -73,12 +73,16 @@ Operator* FactoryOperator::getOperator(ParserResult& parserResult) {
 	{
 	case OPERATION_TYPE::ADD:
 		retOperator = pAddOperator_;
+		break;
 	case OPERATION_TYPE::DEL:
 		retOperator = pDeleteOperator_;
+		break;
 	case OPERATION_TYPE::SCH:
 		retOperator = pSearchOperator_;
+		break;
 	case OPERATION_TYPE::MOD:
 		retOperator = pModifyOperator_;
+		break;
 	}
 	return retOperator;
 }
