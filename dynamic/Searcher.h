@@ -4,6 +4,7 @@
 
 class Searcher {
 public:
+	virtual ~Searcher() {}
 	Searcher(std::vector<EmployeeInfo>* pDataBase) : pDataBase_(pDataBase) {}
 	virtual std::vector<EmployeeInfo> search(const ParserResult& parserResult) const = 0;
 
