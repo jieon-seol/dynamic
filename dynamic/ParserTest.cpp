@@ -5,12 +5,12 @@ using namespace std;
 
 class ParserTestPrivate : public ::testing::Test {
 protected:
-	OPERATION_TYPE parseOperationType(std::string paramStr) { return parser.parseOperationType(paramStr); }
-	OPTION1 parseOption1(std::string paramStr) { return parser.parseOption1(paramStr); }
-	OPTION2 parseOption2(std::string paramStr) { return parser.parseOption2(paramStr); }
-	OPTION3 parseOption3(std::string paramStr) { return parser.parseOption3(paramStr); }
-	std::string parseColumn(std::string paramStr) { return parser.parseColumn(paramStr); }
-	std::string parseData(std::string paramStr, INFO_TYPE num) { return parser.parseData(paramStr, num); }
+	OPERATION_TYPE parseOperationType(const std::string paramStr) { return parser.parseOperationType(paramStr); }
+	OPTION1 parseOption1(const std::string paramStr) { return parser.parseOption1(paramStr); }
+	OPTION2 parseOption2(const std::string paramStr) { return parser.parseOption2(paramStr); }
+	OPTION3 parseOption3(const std::string paramStr) { return parser.parseOption3(paramStr); }
+	std::string validCheckColumnName(const std::string paramStr) { return parser.validCheckColumnName(paramStr); }
+	std::string validCheckColumnData(const std::string paramStr, const COLUMN_NUM num) { return parser.validCheckColumnData(paramStr, num); }
 private:
 	Parser parser;
 };
@@ -42,14 +42,14 @@ TEST_F(ParserTestPrivate, TestPrivateMethod) {
 	//TODO: exception case
 	//EXPECT_EQ(OPTION2::MAX, parseOption2("-q"));
 
-	EXPECT_EQ("employeeNum", parseColumn("employeeNum"));
-	EXPECT_EQ("name", parseColumn("name"));
-	EXPECT_EQ("cl", parseColumn("cl"));
-	EXPECT_EQ("phoneNum", parseColumn("phoneNum"));
-	EXPECT_EQ("birthday", parseColumn("birthday"));
-	EXPECT_EQ("certi", parseColumn("certi"));
+	EXPECT_EQ("employeeNum", validCheckColumnName("employeeNum"));
+	EXPECT_EQ("name", validCheckColumnName("name"));
+	EXPECT_EQ("cl", validCheckColumnName("cl"));
+	EXPECT_EQ("phoneNum", validCheckColumnName("phoneNum"));
+	EXPECT_EQ("birthday", validCheckColumnName("birthday"));
+	EXPECT_EQ("certi", validCheckColumnName("certi"));
 	//TODO: exception case
-	//EXPECT_EQ("asdf", parseColumn("certi"));
+	//EXPECT_EQ("asdf", validCheckColumnName("certi"));
 
 	//TODO: parserData()에 대한 예외처리 구현 & test
 }
