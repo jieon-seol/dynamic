@@ -2,9 +2,9 @@
 #include "Printer.h"
 #include "Parser.h"
 
-std::string DBManager::Query(std::string queryString)
+std::string DBManager::query(std::string queryString)
 {
-    // TODO: invalid한 queryString 검사추가
+    // TODO: check queryString invalidity
     if (queryString.empty()) {
         return std::string();
     }

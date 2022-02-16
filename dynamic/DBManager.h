@@ -15,7 +15,7 @@ public:
         delete scFactory;
     }
 
-    std::string Query(std::string queryString);
+    std::string query(std::string queryString);
 
 private:
     std::vector<EmployeeInfo> database_;
