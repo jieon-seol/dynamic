@@ -7,18 +7,18 @@ class DBManager
 {
 public:
     DBManager():database_(){
-        opFactory = new FactoryOperator(&database_);
-        scFactory = new FactorySearcher(&database_);
+        pOperatorFactory = new FactoryOperator(&database_);
+        pSearcherFactory = new FactorySearcher(&database_);
     }
     ~DBManager() {
-        delete opFactory;
-        delete scFactory;
+        if(pOperatorFactory) delete pOperatorFactory;
+        if(pSearcherFactory) delete pSearcherFactory;
     }
 
-    std::string query(std::string queryString);
+    std::string query(const std::string& queryString);
 
 private:
     std::vector<EmployeeInfo> database_;
-    IFactoryOperator *opFactory;
-    IFactorySearcher *scFactory;
+    IFactoryOperator *pOperatorFactory;
+    IFactorySearcher *pSearcherFactory;
 };
