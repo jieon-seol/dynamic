@@ -17,7 +17,7 @@ std::string DBManager::query(std::string queryString)
 
     std::vector<EmployeeInfo> lists = sc->search(parseResult);
     op->operate(&lists, parseResult);
-    std::string queryResult = Printer::GetPrintString(parseResult, lists);
+    std::string queryResult = Printer::getPrintString(parseResult, lists);
 
     return queryResult;
 }
