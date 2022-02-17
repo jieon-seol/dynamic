@@ -6,27 +6,27 @@
 class Searcher {
 public:
 	virtual ~Searcher() {}
-	Searcher(std::map<std::string, EmployeeInfo>* pDataBase) : pDataBase_(pDataBase) {}
-	virtual std::map<std::string, EmployeeInfo> search(const ParserResult& parserResult) const = 0;
+	Searcher(std::map<int, EmployeeInfo>* pDataBase) : pDataBase_(pDataBase) {}
+	virtual std::map<int, EmployeeInfo> search(const ParserResult& parserResult) const = 0;
 
 protected:
-	std::map<std::string, EmployeeInfo>* pDataBase_;
+	std::map<int, EmployeeInfo>* pDataBase_;
 };
 
 class EmployeeNumSearcher : public Searcher {
 public:
-	EmployeeNumSearcher(std::map<std::string, EmployeeInfo>* pDataBase) : Searcher(pDataBase) {}
+	EmployeeNumSearcher(std::map<int, EmployeeInfo>* pDataBase) : Searcher(pDataBase) {}
 
 private:
-	virtual std::map<std::string, EmployeeInfo> search(const ParserResult& parserResult) const override;
+	virtual std::map<int, EmployeeInfo> search(const ParserResult& parserResult) const override;
 };
 
 class NameSearcher : public Searcher {
 public:
-	NameSearcher(std::map<std::string, EmployeeInfo>* pDataBase) : Searcher(pDataBase) {}
+	NameSearcher(std::map<int, EmployeeInfo>* pDataBase) : Searcher(pDataBase) {}
 
 private:
-	virtual std::map<std::string, EmployeeInfo> search(const ParserResult& parserResult) const override;
+	virtual std::map<int, EmployeeInfo> search(const ParserResult& parserResult) const override;
 	std::string filterData(const std::string& name, const OPTION2 option) const;
 
 private:
@@ -37,18 +37,18 @@ private:
 
 class ClSearcher : public Searcher {
 public:
-	ClSearcher(std::map<std::string, EmployeeInfo>* pDataBase) : Searcher(pDataBase) {}
+	ClSearcher(std::map<int, EmployeeInfo>* pDataBase) : Searcher(pDataBase) {}
 
 private:
-	virtual std::map<std::string, EmployeeInfo> search(const ParserResult& parserResult) const override;
+	virtual std::map<int, EmployeeInfo> search(const ParserResult& parserResult) const override;
 };
 
 class PhoneNumberSearcher : public Searcher {
 public:
-	PhoneNumberSearcher(std::map<std::string, EmployeeInfo>* pDataBase) : Searcher(pDataBase) {}
+	PhoneNumberSearcher(std::map<int, EmployeeInfo>* pDataBase) : Searcher(pDataBase) {}
 
 private:
-	virtual std::map<std::string, EmployeeInfo> search(const ParserResult& parserResult) const override;
+	virtual std::map<int, EmployeeInfo> search(const ParserResult& parserResult) const override;
 	std::string filterData(const std::string& phoneNumber, const OPTION2 numberOption) const;
 
 private:
@@ -59,10 +59,10 @@ private:
 
 class BirthdaySearcher : public Searcher {
 public:
-	BirthdaySearcher(std::map<std::string, EmployeeInfo>* pDataBase) : Searcher(pDataBase) {}
+	BirthdaySearcher(std::map<int, EmployeeInfo>* pDataBase) : Searcher(pDataBase) {}
 
 private:
-	virtual std::map<std::string, EmployeeInfo> search(const ParserResult& parserResult) const override;
+	virtual std::map<int, EmployeeInfo> search(const ParserResult& parserResult) const override;
 	std::string filterData(const std::string& birthDay, const OPTION2 birthOption) const;
 
 private:
@@ -76,10 +76,10 @@ private:
 
 class CertiSearcher : public Searcher {
 public:
-	CertiSearcher(std::map<std::string, EmployeeInfo>* pDataBase) : Searcher(pDataBase) {}
+	CertiSearcher(std::map<int, EmployeeInfo>* pDataBase) : Searcher(pDataBase) {}
 
 private:
-	virtual std::map<std::string, EmployeeInfo> search(const ParserResult& parserResult) const override;
+	virtual std::map<int, EmployeeInfo> search(const ParserResult& parserResult) const override;
 };
 
 class IFactorySearcher {
@@ -90,7 +90,7 @@ public:
 
 class FactorySearcher : public IFactorySearcher {
 public:
-	FactorySearcher(std::map<std::string, EmployeeInfo>* pDataBase) {
+	FactorySearcher(std::map<int, EmployeeInfo>* pDataBase) {
 		pEmployeeNumSearcher_ = new EmployeeNumSearcher(pDataBase);
 		pNameSearcher_ = new NameSearcher(pDataBase);
 		pClSearcher_ = new ClSearcher(pDataBase);

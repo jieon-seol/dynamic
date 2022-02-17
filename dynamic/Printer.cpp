@@ -35,7 +35,7 @@ namespace {
 	}
 }
 
-std::string Printer::getPrintString(const ParserResult& parserResult, const std::map<std::string, EmployeeInfo>& targetEmployees)
+std::string Printer::getPrintString(const ParserResult& parserResult, const std::map<int, EmployeeInfo>& targetEmployees)
 {
 	std::string result;
 

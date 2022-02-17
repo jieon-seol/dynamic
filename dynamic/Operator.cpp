@@ -1,7 +1,7 @@
 #include "Operator.h"
 #include "GlobalMethod.h"
 
-void AddOperator::operate(const std::map<std::string, EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
+void AddOperator::operate(const std::map<int, EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
 	if (pSearchedDb->size() == ALREADY_INCLUDED_DATABASE) {
 		throw std::invalid_argument("ERROR: Already included database");
 		return;
@@ -11,13 +11,13 @@ void AddOperator::operate(const std::map<std::string, EmployeeInfo>* pSearchedDb
 }
 
 void AddOperator::addDataBase(const EmployeeInfo& inputEmployeeInfo) {
-	std::string key = getKeyFromEmployeeNum(inputEmployeeInfo.employeeNum);
+	int key = getKeyFromEmployeeNum(inputEmployeeInfo.employeeNum);
 	(*pdataBase_)[key] = inputEmployeeInfo;
 	return;
 }
 
 
-void DeleteOperator::operate(const std::map<std::string, EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
+void DeleteOperator::operate(const std::map<int, EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
 	for (const auto& searchedInfo : (*pSearchedDb)) {
 		(*pdataBase_).erase(searchedInfo.first);
 	}
@@ -25,12 +25,12 @@ void DeleteOperator::operate(const std::map<std::string, EmployeeInfo>* pSearche
 }
 
 
-void SearchOperator::operate(const std::map<std::string, EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
+void SearchOperator::operate(const std::map<int, EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
 	return;
 }
 
 
-void ModifyOperator::operate(const std::map<std::string, EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
+void ModifyOperator::operate(const std::map<int, EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
 	for (const auto& searchedInfo : (*pSearchedDb)) {
 		if (parserResult.changeColumn == "name") {
 			(*pdataBase_)[searchedInfo.first].name = parserResult.changeData;
@@ -51,7 +51,7 @@ void ModifyOperator::operate(const std::map<std::string, EmployeeInfo>* pSearche
 	return;
 }
 
-FactoryOperator::FactoryOperator(std::map<std::string, EmployeeInfo>* pDb) {
+FactoryOperator::FactoryOperator(std::map<int, EmployeeInfo>* pDb) {
 	pAddOperator_ = new AddOperator(pDb);
 	pDeleteOperator_ = new DeleteOperator(pDb);
 	pSearchOperator_ = new SearchOperator(pDb);
