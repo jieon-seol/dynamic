@@ -5,5 +5,5 @@
 
 class Printer {
 public:
-	static std::string getPrintString(const ParserResult& parserResult, const std::map<std::string, EmployeeInfo>& targetEmployees);
+	static std::string getPrintString(const ParserResult& parserResult, const std::map<int, EmployeeInfo>& targetEmployees);
 };

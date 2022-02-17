@@ -18,7 +18,7 @@ public:
     std::string query(const std::string& queryString);
 
 private:
-    std::map<std::string, EmployeeInfo> database_;
+    std::map<int, EmployeeInfo> database_;
     IFactoryOperator *pOperatorFactory;
     IFactorySearcher *pSearcherFactory;
 };

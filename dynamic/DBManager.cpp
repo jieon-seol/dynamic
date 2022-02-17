@@ -14,7 +14,7 @@ std::string DBManager::query(const std::string& queryString)
     Operator* pOperator = pOperatorFactory->getOperator(parseResult);
     Searcher* pSearcher = pSearcherFactory->getSearcher(parseResult);
 
-    std::map<std::string, EmployeeInfo> lists = pSearcher->search(parseResult);
+    std::map<int, EmployeeInfo> lists = pSearcher->search(parseResult);
     pOperator->operate(&lists, parseResult);
 
     return Printer::getPrintString(parseResult, lists);
