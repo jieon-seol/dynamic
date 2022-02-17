@@ -1,28 +1,30 @@
 #include <iostream>
+#include <vector>
 #include <string>
 #include "Searcher.h"
 #include "GlobalMethod.h"
 
 using namespace std;
 
-vector<EmployeeInfo> EmployeeNumSearcher::search(const ParserResult& parserResult) const {
-	vector<EmployeeInfo> searchedInfo;
+map<string, EmployeeInfo> EmployeeNumSearcher::search(const ParserResult& parserResult) const {
+	map<string, EmployeeInfo> searchedInfo;
 
-	for (const auto& dbInfo : (*pDataBase_)) {
-		if (parserResult.searchData == dbInfo.employeeNum) {
-			searchedInfo.emplace_back(dbInfo);
-			return searchedInfo;
-		}
+	string key = getKeyFromEmployeeNum(parserResult.searchData);
+	if ((*pDataBase_).count(key)) {
+		searchedInfo[key] = (*pDataBase_)[key];
 	}
+
 	return searchedInfo;
 }
 
-vector<EmployeeInfo> NameSearcher::search(const ParserResult& parserResult) const {
-	vector<EmployeeInfo> searchedInfo;
+map<string, EmployeeInfo> NameSearcher::search(const ParserResult& parserResult) const {
+	string searchName = parserResult.searchData;
+	OPTION2 nameOption = parserResult.option2;
+	map<string, EmployeeInfo> searchedInfo;
 
-	for (const auto& dbInfo : (*pDataBase_)) {
-		if (parserResult.searchData == filterData(dbInfo.name, parserResult.option2)) {
-			searchedInfo.emplace_back(dbInfo);
+	for (const auto& info : (*pDataBase_)) {
+		if (parserResult.searchData == filterData(info.second.name, nameOption)) {
+			searchedInfo[info.first] = info.second;
 		}
 	}
 
@@ -50,23 +52,26 @@ string NameSearcher::filterData(const string& name, const OPTION2 nameOption) co
 	throw invalid_argument("ERROR: Invalid Name Option2");
 }
 
-vector<EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) const {
-	vector<EmployeeInfo> searchedInfo;
+map<string, EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) const {
+	map<string, EmployeeInfo> searchedInfo;
 
-	for (const auto& dbInfo : (*pDataBase_)) {
-		if (parserResult.searchData == dbInfo.cl) {
-			searchedInfo.emplace_back(dbInfo);
+	for (const auto& info : (*pDataBase_)) {
+		if (parserResult.searchData == info.second.cl) {
+			searchedInfo[info.first] = info.second;
 		}
 	}
+
 	return searchedInfo;
 }
 
-vector<EmployeeInfo> PhoneNumberSearcher::search(const ParserResult& parserResult) const {
-	vector<EmployeeInfo> searchedInfo;
+map<string, EmployeeInfo> PhoneNumberSearcher::search(const ParserResult& parserResult) const {
+	string searchNumber = parserResult.searchData;
+	OPTION2 numberOption = parserResult.option2;
+	map<string, EmployeeInfo> searchedInfo;
 
-	for (const auto& dbInfo : (*pDataBase_)) {
-		if (parserResult.searchData == filterData(dbInfo.phoneNum, parserResult.option2)) {
-			searchedInfo.emplace_back(dbInfo);
+	for (const auto& info : (*pDataBase_)) {
+		if (parserResult.searchData == filterData(info.second.phoneNum, numberOption)) {
+			searchedInfo[info.first] = info.second;
 		}
 	}
 
@@ -94,12 +99,14 @@ string PhoneNumberSearcher::filterData(const string& phoneNum, const OPTION2 num
 	throw invalid_argument("ERROR: Invalid Phone Number Option2");
 }
 
-vector<EmployeeInfo> BirthdaySearcher::search(const ParserResult& parserResult) const {
-	vector<EmployeeInfo> searchedInfo;
+map<string, EmployeeInfo> BirthdaySearcher::search(const ParserResult& parserResult) const {
+	string searchBirth = parserResult.searchData;
+	OPTION2 birthOption = parserResult.option2;
+	map<string, EmployeeInfo> searchedInfo;
 
-	for (const auto& dbInfo : (*pDataBase_)) {
-		if (parserResult.searchData == filterData(dbInfo.birthday, parserResult.option2)) {
-			searchedInfo.emplace_back(dbInfo);
+	for (const auto& info : (*pDataBase_)) {
+		if (parserResult.searchData == filterData(info.second.birthday, birthOption)) {
+			searchedInfo[info.first] = info.second;
 		}
 	}
 
@@ -126,12 +133,12 @@ string BirthdaySearcher::filterData(const string& birthDay, const OPTION2 birthO
 	throw invalid_argument("ERROR: Invalid Birthday Option2");
 }
 
-vector<EmployeeInfo> CertiSearcher::search(const ParserResult& parserResult) const {
-	vector<EmployeeInfo> searchedInfo;
+map<string, EmployeeInfo> CertiSearcher::search(const ParserResult& parserResult) const {
+	map<string, EmployeeInfo> searchedInfo;
 
-	for (const auto& dbInfo : (*pDataBase_)) {
-		if (parserResult.searchData == dbInfo.certi) {
-			searchedInfo.emplace_back(dbInfo);
+	for (const auto& info : (*pDataBase_)) {
+		if (parserResult.searchData == info.second.certi) {
+			searchedInfo[info.first] = info.second;
 		}
 	}
 
