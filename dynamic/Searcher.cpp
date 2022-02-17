@@ -6,27 +6,27 @@
 using namespace std;
 
 vector<EmployeeInfo> EmployeeNumSearcher::search(const ParserResult& parserResult) const {
-	vector<EmployeeInfo> result;
+	vector<EmployeeInfo> searchedInfo;
 
-	for (const auto& info : (*pDataBase_)) {
-		if (parserResult.searchData == info.employeeNum) {
-			result.emplace_back(info);
-			return result;
+	for (const auto& dbInfo : (*pDataBase_)) {
+		if (parserResult.searchData == dbInfo.employeeNum) {
+			searchedInfo.emplace_back(dbInfo);
+			return searchedInfo;
 		}
 	}
-	return result;
+	return searchedInfo;
 }
 
 vector<EmployeeInfo> NameSearcher::search(const ParserResult& parserResult) const {
-	vector<EmployeeInfo> result;
+	vector<EmployeeInfo> searchedInfo;
 
-	for (const auto& info : (*pDataBase_)) {
-		if (parserResult.searchData == filterData(info.name, parserResult.option2)) {
-			result.emplace_back(info);
+	for (const auto& dbInfo : (*pDataBase_)) {
+		if (parserResult.searchData == filterData(dbInfo.name, parserResult.option2)) {
+			searchedInfo.emplace_back(dbInfo);
 		}
 	}
 
-	return result;
+	return searchedInfo;
 }
 
 string NameSearcher::filterData(const string& name, const OPTION2 nameOption) const {
@@ -51,26 +51,26 @@ string NameSearcher::filterData(const string& name, const OPTION2 nameOption) co
 }
 
 vector<EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) const {
-	vector<EmployeeInfo> result;
+	vector<EmployeeInfo> searchedInfo;
 
-	for (const auto& info : (*pDataBase_)) {
-		if (parserResult.searchData == info.cl) {
-			result.emplace_back(info);
+	for (const auto& dbInfo : (*pDataBase_)) {
+		if (parserResult.searchData == dbInfo.cl) {
+			searchedInfo.emplace_back(dbInfo);
 		}
 	}
-	return result;
+	return searchedInfo;
 }
 
 vector<EmployeeInfo> PhoneNumberSearcher::search(const ParserResult& parserResult) const {
-	vector<EmployeeInfo> result;
+	vector<EmployeeInfo> searchedInfo;
 
-	for (const auto& info : (*pDataBase_)) {
-		if (parserResult.searchData == filterData(info.phoneNum, parserResult.option2)) {
-			result.emplace_back(info);
+	for (const auto& dbInfo : (*pDataBase_)) {
+		if (parserResult.searchData == filterData(dbInfo.phoneNum, parserResult.option2)) {
+			searchedInfo.emplace_back(dbInfo);
 		}
 	}
 
-	return result;
+	return searchedInfo;
 }
 
 string PhoneNumberSearcher::filterData(const string& phoneNum, const OPTION2 numOption) const {
@@ -95,27 +95,31 @@ string PhoneNumberSearcher::filterData(const string& phoneNum, const OPTION2 num
 }
 
 vector<EmployeeInfo> BirthdaySearcher::search(const ParserResult& parserResult) const {
-	vector<EmployeeInfo> result;
+	vector<EmployeeInfo> searchedInfo;
 
-	for (const auto& info : (*pDataBase_)) {
-		if (parserResult.searchData == filterData(info.birthday, parserResult.option2)) {
-			result.emplace_back(info);
+	for (const auto& dbInfo : (*pDataBase_)) {
+		if (parserResult.searchData == filterData(dbInfo.birthday, parserResult.option2)) {
+			searchedInfo.emplace_back(dbInfo);
 		}
 	}
 
-	return result;
+	return searchedInfo;
 }
 
 string BirthdaySearcher::filterData(const string& birthDay, const OPTION2 birthOption) const {
-	if (birthOption == OPTION2::NONE) return birthDay;
+	if (birthOption == OPTION2::NONE) {
+		return birthDay;
+	}
 
 	if (birthOption == OPTION2::Y) {
 		return birthDay.substr(YEAR_START_INDEX, YEAR_NUM_COUNT);
 	}
-	else if (birthOption == OPTION2::M) {
+	
+	if (birthOption == OPTION2::M) {
 		return birthDay.substr(MONTH_START_INDEX, MONTH_NUM_COUNT);
 	}
-	else if (birthOption == OPTION2::D) {
+	
+	if (birthOption == OPTION2::D) {
 		return birthDay.substr(DAY_START_INDEX, DAY_NUM_COUNT);
 	}
 
@@ -123,15 +127,15 @@ string BirthdaySearcher::filterData(const string& birthDay, const OPTION2 birthO
 }
 
 vector<EmployeeInfo> CertiSearcher::search(const ParserResult& parserResult) const {
-	vector<EmployeeInfo> result;
+	vector<EmployeeInfo> searchedInfo;
 
-	for (const auto& info : (*pDataBase_)) {
-		if (parserResult.searchData == info.certi) {
-			result.emplace_back(info);
+	for (const auto& dbInfo : (*pDataBase_)) {
+		if (parserResult.searchData == dbInfo.certi) {
+			searchedInfo.emplace_back(dbInfo);
 		}
 	}
 
-	return result;
+	return searchedInfo;
 }
 
 Searcher* FactorySearcher::getSearcher(const ParserResult& parserResult) const {
