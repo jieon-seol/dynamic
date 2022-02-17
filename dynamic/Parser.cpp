@@ -8,8 +8,8 @@ Column columns[(unsigned long long)COLUMN_NUM::MAX]{
 		{"employeeNum", "\\d{8}"},
 		{"name", "[a-z,A-Z, ]+"},
 		{"cl", "CL[1-4]"},
-		{"phoneNum", "01[0-9]-\\d{3,4}-\\d{4}"},
-		{"birthday", "\\d{8}"},
+		{"phoneNum", "(01[0-9]-\\d{3,4}-\\d{4})|(\\d{3,4})"},
+		{"birthday", "(\\d{8})|(\\d{4})|(0[1-9]|1[0-2])|(0[1-9]|[12][0-9]|3[01])"},
 		{"certi", "(ADV)|(PRO)|(EX)"},
 };
 
@@ -62,7 +62,7 @@ string Parser::validCheckColumnName(const string paramStr) {
 	for (int i = 0; i < (int)COLUMN_NUM::MAX; i++) {
 		if (columns[i].getColumnName() == paramStr) return paramStr;
 	}
-	return " ";	//abnormal case
+	return "";	//abnormal case
 }
 
 string Parser::validCheckColumnData(const string dataStr, const string columnStr) {
@@ -70,10 +70,10 @@ string Parser::validCheckColumnData(const string dataStr, const string columnStr
 	for (int i = 0; i < (int)COLUMN_NUM::MAX; i++) {
 		if (columns[i].getColumnName() == columnStr) {
 			if (columns[i].checkValidDataFormat(dataStr)) return dataStr;
-			else return " ";
+			else return "";
 		}
 	}
-	return " ";	//abnormal case
+	return "";	//abnormal case
 }
 
 

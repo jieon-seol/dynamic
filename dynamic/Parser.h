@@ -4,7 +4,7 @@
 #include <regex>
 #include "Define.h"
 
-#define PERFORMANCE_MODE 0
+#define PERFORMANCE_MODE 01
 //regex_match()시간이 걸릴 수 있으므로, regex 검사를 끕니다
 
 enum class COLUMN_NUM { NONE = -1, employeeNum, name, cl, phoneNum, birthday, certi, MAX };
