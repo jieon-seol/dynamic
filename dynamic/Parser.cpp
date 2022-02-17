@@ -1,9 +1,8 @@
 ﻿#include "Parser.h"
 #include "GlobalMethod.h"
 
-#include <vector>
-
 using namespace std;
+
 
 Column columns[(unsigned long long)COLUMN_NUM::MAX]{
 		{"employeeNum", "\\d{8}"},
@@ -23,14 +22,14 @@ OPERATION_TYPE Parser::parseOperationType(const string paramStr) {
 										//	TODO: throw exception?
 }
 
-OPTION1 Parser::parseOption1(const std::string paramStr) {
+OPTION1 Parser::parseOption1(const string paramStr) {
 	if (paramStr == "-p") return OPTION1::P;
 	if (paramStr == " ") return OPTION1::NONE;	//normal case
 	else return OPTION1::MAX;	//abnormal case
 								//	TODO: throw exception?
 }
 
-OPTION2 Parser::parseOption2(const std::string paramStr) {
+OPTION2 Parser::parseOption2(const string paramStr) {
 	if (paramStr == "-y") return OPTION2::Y;
 	if (paramStr == "-m") return OPTION2::M;
 	if (paramStr == "-d") return OPTION2::D;
@@ -41,32 +40,32 @@ OPTION2 Parser::parseOption2(const std::string paramStr) {
 								//	TODO: throw exception?
 }
 
-OPTION3 Parser::parseOption3(const std::string paramStr) {
+OPTION3 Parser::parseOption3(const string paramStr) {
 	if (paramStr == " ") return OPTION3::NONE;	//normal case
 	else return OPTION3::MAX;	//abnormal case
 								//	TODO: throw exception?
 }
 
-COLUMN_NUM columnStrToNum(const std::string columnStr) {
+COLUMN_NUM columnStrToNum(const string columnStr) {
 	for (int i = 0; i < (int)COLUMN_NUM::MAX; i++) {
 		if (columns[i].getColumnName() == columnStr) return (COLUMN_NUM)i;
 	}
 	return COLUMN_NUM::NONE;
 }
-std::string columnNumToStr(const COLUMN_NUM columnNum) {
+string columnNumToStr(const COLUMN_NUM columnNum) {
 	if (columnNum <= COLUMN_NUM::NONE || columnNum >= COLUMN_NUM::MAX)
 		return "";
 	return columns[(unsigned long long)columnNum].getColumnName();
 }
 
-std::string Parser::validCheckColumnName(const std::string paramStr) {
+string Parser::validCheckColumnName(const string paramStr) {
 	for (int i = 0; i < (int)COLUMN_NUM::MAX; i++) {
 		if (columns[i].getColumnName() == paramStr) return paramStr;
 	}
 	return " ";	//abnormal case
 }
 
-std::string Parser::validCheckColumnData(const string dataStr, const string columnStr) {
+string Parser::validCheckColumnData(const string dataStr, const string columnStr) {
 	//TODO: add valid check -> invalid시에 throw exception
 	for (int i = 0; i < (int)COLUMN_NUM::MAX; i++) {
 		if (columns[i].getColumnName() == columnStr) {

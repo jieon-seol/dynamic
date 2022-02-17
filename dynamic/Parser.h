@@ -1,9 +1,10 @@
 ﻿#pragma once
 #include <string>
+#include <vector>
 #include <regex>
 #include "Define.h"
 
-#define PERFORMANCE_MODE 01
+#define PERFORMANCE_MODE 0
 //regex_match()시간이 걸릴 수 있으므로, regex 검사를 끕니다
 
 enum class COLUMN_NUM { NONE = -1, employeeNum, name, cl, phoneNum, birthday, certi, MAX };
@@ -13,10 +14,7 @@ public:
 		columnName_ = columnName;
 		data_regex_format_ = valueCheckRegex;
 	}
-	bool isValidValue(std::string valueStr) {
-		//TODO: valueStr이 val_format에 맞는지 검증한다
-		return false;
-	}
+
 	std::string getColumnName() { return columnName_; }
 
 	bool checkValidDataFormat(std::string dataStr) {
@@ -24,7 +22,7 @@ public:
 		return true;
 #else
 		std::regex re(data_regex_format_, std::regex::optimize);
-		return std::regex_match(dataStr, re);
+		return regex_match(dataStr, re);
 #endif
 	}
 private:

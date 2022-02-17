@@ -1,16 +1,17 @@
 ﻿#include "gtest/gtest.h"
 #include "Parser.h"
 #include <string>
+
 using namespace std;
 
 class ParserTestPrivate : public ::testing::Test {
 protected:
-	OPERATION_TYPE parseOperationType(const std::string paramStr) { return parser.parseOperationType(paramStr); }
-	OPTION1 parseOption1(const std::string paramStr) { return parser.parseOption1(paramStr); }
-	OPTION2 parseOption2(const std::string paramStr) { return parser.parseOption2(paramStr); }
-	OPTION3 parseOption3(const std::string paramStr) { return parser.parseOption3(paramStr); }
-	std::string validCheckColumnName(const std::string columnStr) { return parser.validCheckColumnName(columnStr); }
-	std::string validCheckColumnData(const std::string dataStr, const string columnStr) { return parser.validCheckColumnData(dataStr, columnStr); }
+	OPERATION_TYPE parseOperationType(const string paramStr) { return parser.parseOperationType(paramStr); }
+	OPTION1 parseOption1(const string paramStr) { return parser.parseOption1(paramStr); }
+	OPTION2 parseOption2(const string paramStr) { return parser.parseOption2(paramStr); }
+	OPTION3 parseOption3(const string paramStr) { return parser.parseOption3(paramStr); }
+	string validCheckColumnName(const string columnStr) { return parser.validCheckColumnName(columnStr); }
+	string validCheckColumnData(const string dataStr, const string columnStr) { return parser.validCheckColumnData(dataStr, columnStr); }
 private:
 	Parser parser;
 };
