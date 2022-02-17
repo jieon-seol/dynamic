@@ -1,7 +1,6 @@
 ﻿#include "Parser.h"
+#include "GlobalMethod.h"
 
-#include <sstream>
-#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -77,14 +76,9 @@ COLUMN_NUM Parser::columnStrToNum(const string columnStr) {
 
 struct ParserResult Parser::parse(string queryStirng) {
 	struct ParserResult result;
-	vector<string> words;
-	istringstream ss(queryStirng);
-	string word;
 
 	try {
-		while (getline(ss, word, ',')) {
-			words.push_back(word);
-		}
+		vector<string> words = splitString(queryStirng, ',');
 
 		//TODO: try-catch 추가 (parsing Error)
 		result.operationType = parseOperationType(words[0]);

@@ -1,26 +1,9 @@
 #include <iostream>
 #include <string>
 #include "Searcher.h"
+#include "GlobalMethod.h"
 
 using namespace std;
-
-namespace {
-	vector<string> splitString(const string& targetStr, const char delimiter) {
-		vector<string> subStringVector;
-		size_t previous = 0;
-		size_t current = targetStr.find(delimiter);
-
-		while (current != string::npos) {
-			string substring = targetStr.substr(previous, current - previous);
-			subStringVector.push_back(substring);
-			previous = current + 1;
-			current = targetStr.find(delimiter, previous);
-		}
-		subStringVector.push_back(targetStr.substr(previous, current - previous));
-
-		return subStringVector;
-	}
-}
 
 vector<EmployeeInfo> EmployeeNumSearcher::search(const ParserResult& parserResult) const {
 	vector<EmployeeInfo> result;
