@@ -1,7 +1,6 @@
 #include "Define.h"
 #include <iostream>
 #include <map>
-#define ALREADY_INCLUDED_DATABASE 1
 
 class Operator {
 public:
@@ -20,6 +19,7 @@ public:
 	void operate(const std::map<int, EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) override;
 private:
 	void addDataBase(const EmployeeInfo& inputEmployeeInfo);
+	static constexpr int ALREADY_INCLUDED_DATABASE = 1;
 };
 
 class DeleteOperator : public Operator {
@@ -52,13 +52,8 @@ public:
 class FactoryOperator : public IFactoryOperator {
 public:
 	FactoryOperator(std::map<int, EmployeeInfo>* pdataBase);
+	~FactoryOperator();
 	Operator* getOperator(ParserResult& parserResult) override;
-	~FactoryOperator() {
-		delete pAddOperator_;
-		delete pDeleteOperator_;
-		delete pSearchOperator_;
-		delete pModifyOperator_;
-	};
 protected:
 	Operator* pAddOperator_;
 	Operator* pDeleteOperator_;
