@@ -5,6 +5,15 @@
 
 using namespace std;
 
+Column columns[(unsigned long long)COLUMN_NUM::MAX]{
+		{"employeeNum", "\\d{8}"},
+		{"name", "[a-z,A-Z, ]+"},
+		{"cl", "CL[1-4]"},
+		{"phoneNum", "01[0-9]-\\d{3,4}-\\d{4}"},
+		{"birthday", "\\d{8}"},
+		{"certi", "(ADV)|(PRO)|(EX)"},
+};
+
 OPERATION_TYPE Parser::parseOperationType(const string paramStr) {
 	if (paramStr == "ADD") return OPERATION_TYPE::ADD;
 	if (paramStr == "DEL") return OPERATION_TYPE::DEL;
@@ -38,41 +47,36 @@ OPTION3 Parser::parseOption3(const std::string paramStr) {
 								//	TODO: throw exception?
 }
 
+COLUMN_NUM columnStrToNum(const std::string columnStr) {
+	for (int i = 0; i < (int)COLUMN_NUM::MAX; i++) {
+		if (columns[i].getColumnName() == columnStr) return (COLUMN_NUM)i;
+	}
+	return COLUMN_NUM::NONE;
+}
+std::string columnNumToStr(const COLUMN_NUM columnNum) {
+	if (columnNum <= COLUMN_NUM::NONE || columnNum >= COLUMN_NUM::MAX)
+		return "";
+	return columns[(unsigned long long)columnNum].getColumnName();
+}
+
 std::string Parser::validCheckColumnName(const std::string paramStr) {
-	if (paramStr == "employeeNum" ||
-		paramStr == "name" ||
-		paramStr == "cl" ||
-		paramStr == "phoneNum" ||
-		paramStr == "birthday" ||
-		paramStr == "certi") {
-		return paramStr;
+	for (int i = 0; i < (int)COLUMN_NUM::MAX; i++) {
+		if (columns[i].getColumnName() == paramStr) return paramStr;
 	}
-	else return " ";	//abnormal case
+	return " ";	//abnormal case
 }
 
-std::string Parser::validCheckColumnData(const std::string paramStr, const COLUMN_NUM type) {
+std::string Parser::validCheckColumnData(const string dataStr, const string columnStr) {
 	//TODO: add valid check -> invalid시에 throw exception
-	switch (type) {
-	case COLUMN_NUM::employeeNum: return paramStr;
-	case COLUMN_NUM::name: return paramStr;
-	case COLUMN_NUM::cl: return paramStr;
-	case COLUMN_NUM::phoneNum: return paramStr;
-	case COLUMN_NUM::birthday: return paramStr;
-	case COLUMN_NUM::certi: return paramStr;
-	default: return " ";//abnormal case: 없는 타입에 대한 요청이면 parsing하지 않고 " "을 리턴한다
+	for (int i = 0; i < (int)COLUMN_NUM::MAX; i++) {
+		if (columns[i].getColumnName() == columnStr) {
+			if (columns[i].checkValidDataFormat(dataStr)) return dataStr;
+			else return " ";
+		}
 	}
+	return " ";	//abnormal case
 }
 
-COLUMN_NUM Parser::columnStrToNum(const string columnStr) {
-	if (columnStr == "employeeNum")	return COLUMN_NUM::employeeNum;
-	if (columnStr == "name")		return COLUMN_NUM::name;
-	if (columnStr == "cl")			return COLUMN_NUM::cl;
-	if (columnStr == "phoneNum")	return COLUMN_NUM::phoneNum;
-	if (columnStr == "birthday")	return COLUMN_NUM::birthday;
-	if (columnStr == "certi")		return COLUMN_NUM::certi;
-	else return COLUMN_NUM::MAX;	//abnormal case
-								//	TODO: throw exception?
-}
 
 struct ParserResult Parser::parse(string queryStirng) {
 	struct ParserResult result;
@@ -88,30 +92,31 @@ struct ParserResult Parser::parse(string queryStirng) {
 
 		switch (result.operationType) {
 		case OPERATION_TYPE::ADD:
-			result.info.employeeNum = validCheckColumnData(words[4], COLUMN_NUM::employeeNum);
-			result.info.name = validCheckColumnData(words[5], COLUMN_NUM::name);
-			result.info.cl = validCheckColumnData(words[6], COLUMN_NUM::cl);
-			result.info.phoneNum = validCheckColumnData(words[7], COLUMN_NUM::phoneNum);
-			result.info.birthday = validCheckColumnData(words[8], COLUMN_NUM::birthday);
-			result.info.certi = validCheckColumnData(words[9], COLUMN_NUM::certi);
+			result.info.employeeNum = validCheckColumnData(words[4], "employeeNum");
+			result.info.name = validCheckColumnData(words[5], "name");
+			result.info.cl = validCheckColumnData(words[6], "cl");
+			result.info.phoneNum = validCheckColumnData(words[7], "phoneNum");
+			result.info.birthday = validCheckColumnData(words[8], "birthday");
+			result.info.certi = validCheckColumnData(words[9], "certi");
 			result.searchColumn = "employeeNum";
 			result.searchData = result.info.employeeNum;
 			break;
 		case OPERATION_TYPE::DEL:
 		case OPERATION_TYPE::SCH:
 			result.searchColumn = validCheckColumnName(words[4]);
-			result.searchData = validCheckColumnData(words[5], columnStrToNum(result.searchColumn));
+			result.searchData = validCheckColumnData(words[5], result.searchColumn);
 			break;
 		case OPERATION_TYPE::MOD:
 			result.searchColumn = validCheckColumnName(words[4]);
-			result.searchData = validCheckColumnData(words[5], columnStrToNum(result.searchColumn));
+			result.searchData = validCheckColumnData(words[5], result.searchColumn);
 			result.changeColumn = validCheckColumnName(words[6]);
-			result.changeData = validCheckColumnData(words[7], columnStrToNum(result.changeColumn));
+			result.changeData = validCheckColumnData(words[7], result.changeColumn);
 			break;
 		default:
 			;
 		}
-	} catch (exception &e) {
+	}
+	catch (exception& e) {
 		//TODO: exception ? exception을 던지려면, Manager에서 받아줘야 함
 		e.what();
 	}
