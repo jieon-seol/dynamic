@@ -20,5 +20,7 @@ private:
 	std::string validCheckColumnName(const std::string paramStr);
 	std::string validCheckColumnData(const std::string paramStr, const COLUMN_NUM num);
 
-	COLUMN_NUM columnStrToNum(const std::string columnStr);
 };
+
+COLUMN_NUM columnStrToNum(const std::string columnStr);
+std::string columnNumToStr(const COLUMN_NUM columnNum);

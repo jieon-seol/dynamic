@@ -9,13 +9,46 @@ protected:
 	OPTION1 parseOption1(const std::string paramStr) { return parser.parseOption1(paramStr); }
 	OPTION2 parseOption2(const std::string paramStr) { return parser.parseOption2(paramStr); }
 	OPTION3 parseOption3(const std::string paramStr) { return parser.parseOption3(paramStr); }
-	std::string validCheckColumnName(const std::string paramStr) { return parser.validCheckColumnName(paramStr); }
-	std::string validCheckColumnData(const std::string paramStr, const COLUMN_NUM num) { return parser.validCheckColumnData(paramStr, num); }
+	std::string validCheckColumnName(const std::string columnStr) { return parser.validCheckColumnName(columnStr); }
+	std::string validCheckColumnData(const std::string dataStr, const string columnStr) { return parser.validCheckColumnData(dataStr, columnStr); }
 private:
 	Parser parser;
 };
 
-TEST_F(ParserTestPrivate, TestPrivateMethod) {
+TEST_F(ParserTestPrivate, test_refactoring_column) {
+	EXPECT_EQ(COLUMN_NUM::employeeNum, columnStrToNum("employeeNum"));
+	EXPECT_EQ(COLUMN_NUM::name, columnStrToNum("name"));
+	EXPECT_EQ(COLUMN_NUM::cl, columnStrToNum("cl"));
+	EXPECT_EQ(COLUMN_NUM::phoneNum, columnStrToNum("phoneNum"));
+	EXPECT_EQ(COLUMN_NUM::birthday, columnStrToNum("birthday"));
+	EXPECT_EQ(COLUMN_NUM::certi, columnStrToNum("certi"));
+
+	EXPECT_EQ(columnNumToStr(COLUMN_NUM::employeeNum), "employeeNum");
+	EXPECT_EQ(columnNumToStr(COLUMN_NUM::name), "name");
+	EXPECT_EQ(columnNumToStr(COLUMN_NUM::cl), "cl");
+	EXPECT_EQ(columnNumToStr(COLUMN_NUM::phoneNum), "phoneNum");
+	EXPECT_EQ(columnNumToStr(COLUMN_NUM::birthday), "birthday");
+	EXPECT_EQ(columnNumToStr(COLUMN_NUM::certi), "certi");
+
+	EXPECT_EQ("employeeNum", validCheckColumnName("employeeNum"));
+	EXPECT_EQ("name", validCheckColumnName("name"));
+	EXPECT_EQ("cl", validCheckColumnName("cl"));
+	EXPECT_EQ("phoneNum", validCheckColumnName("phoneNum"));
+	EXPECT_EQ("birthday", validCheckColumnName("birthday"));
+	EXPECT_EQ("certi", validCheckColumnName("certi"));
+
+	//regex
+	EXPECT_EQ("010-1234-1234", validCheckColumnData("010-1234-1234", "phoneNum"));
+	EXPECT_EQ("010-124-1234", validCheckColumnData("010-124-1234", "phoneNum"));
+	EXPECT_EQ("TTETHU HBO", validCheckColumnData("TTETHU HBO", "name"));
+	EXPECT_EQ("CL2", validCheckColumnData("CL2", "cl"));
+	EXPECT_EQ("19861203", validCheckColumnData("19861203", "birthday"));
+	EXPECT_EQ("PRO", validCheckColumnData("PRO", "certi"));
+}
+#if 10
+
+TEST_F(ParserTestPrivate, Test_PrivateMethod) {
+
 
 	EXPECT_EQ(OPERATION_TYPE::ADD, parseOperationType("ADD"));
 	EXPECT_EQ(OPERATION_TYPE::DEL, parseOperationType("DEL"));
@@ -53,6 +86,9 @@ TEST_F(ParserTestPrivate, TestPrivateMethod) {
 
 	//TODO: parserData()에 대한 예외처리 구현 & test
 }
+#endif
+
+#if 10
 
 TEST(ParserTest, test_ADD_normal_01) {
 	Parser* pParser = new Parser();
@@ -70,6 +106,9 @@ TEST(ParserTest, test_ADD_normal_01) {
 	EXPECT_EQ("19771211", result.info.birthday);
 	EXPECT_EQ("ADV", result.info.certi);
 }
+#endif
+
+#if 10
 TEST(ParserTest, test_DEL_normal_01_employeeNum) {
 	Parser* pParser = new Parser();
 	string str = "DEL, , , ,employeeNum,18115040";
@@ -217,7 +256,7 @@ TEST(ParserTest, test_DEL_normal_06_certi) {
 
 TEST(ParserTest, test_SCH_normal_01_birthday) {
 	Parser* pParser = new Parser();
-	string str = "SCH,-p,-d, ,birthday,04";
+	string str = "SCH,-p,-d, ,birthday,22020217";
 	struct ParserResult result = pParser->parse(str);
 
 	EXPECT_EQ(OPERATION_TYPE::SCH, result.operationType);
@@ -225,7 +264,7 @@ TEST(ParserTest, test_SCH_normal_01_birthday) {
 	EXPECT_EQ(OPTION2::D, result.option2);
 	EXPECT_EQ(OPTION3::NONE, result.option3);
 	EXPECT_EQ("birthday", result.searchColumn);
-	EXPECT_EQ("04", result.searchData);
+	EXPECT_EQ("22020217", result.searchData);
 	EXPECT_EQ("", result.info.employeeNum);
 	EXPECT_EQ("", result.info.name);
 	EXPECT_EQ("", result.info.cl);
@@ -255,3 +294,5 @@ TEST(ParserTest, test_MOD_normal_01) {
 	EXPECT_EQ("", result.info.certi);
 }
 //TODO: exception case에 대한 TC 추가
+
+#endif
