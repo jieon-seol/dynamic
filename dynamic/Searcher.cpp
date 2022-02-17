@@ -18,13 +18,11 @@ map<string, EmployeeInfo> EmployeeNumSearcher::search(const ParserResult& parser
 }
 
 map<string, EmployeeInfo> NameSearcher::search(const ParserResult& parserResult) const {
-	string searchName = parserResult.searchData;
-	OPTION2 nameOption = parserResult.option2;
 	map<string, EmployeeInfo> searchedInfo;
 
-	for (const auto& info : (*pDataBase_)) {
-		if (parserResult.searchData == filterData(info.second.name, nameOption)) {
-			searchedInfo[info.first] = info.second;
+	for (const auto& dbInfo : (*pDataBase_)) {
+		if (parserResult.searchData == filterData(dbInfo.second.name, parserResult.option2)) {
+			searchedInfo[dbInfo.first] = dbInfo.second;
 		}
 	}
 
@@ -55,9 +53,9 @@ string NameSearcher::filterData(const string& name, const OPTION2 nameOption) co
 map<string, EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) const {
 	map<string, EmployeeInfo> searchedInfo;
 
-	for (const auto& info : (*pDataBase_)) {
-		if (parserResult.searchData == info.second.cl) {
-			searchedInfo[info.first] = info.second;
+	for (const auto& dbInfo : (*pDataBase_)) {
+		if (parserResult.searchData == dbInfo.second.cl) {
+			searchedInfo[dbInfo.first] = dbInfo.second;
 		}
 	}
 
@@ -65,13 +63,11 @@ map<string, EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) c
 }
 
 map<string, EmployeeInfo> PhoneNumberSearcher::search(const ParserResult& parserResult) const {
-	string searchNumber = parserResult.searchData;
-	OPTION2 numberOption = parserResult.option2;
 	map<string, EmployeeInfo> searchedInfo;
 
-	for (const auto& info : (*pDataBase_)) {
-		if (parserResult.searchData == filterData(info.second.phoneNum, numberOption)) {
-			searchedInfo[info.first] = info.second;
+	for (const auto& dbInfo : (*pDataBase_)) {
+		if (parserResult.searchData == filterData(dbInfo.second.phoneNum, parserResult.option2)) {
+			searchedInfo[dbInfo.first] = dbInfo.second;
 		}
 	}
 
@@ -100,13 +96,11 @@ string PhoneNumberSearcher::filterData(const string& phoneNum, const OPTION2 num
 }
 
 map<string, EmployeeInfo> BirthdaySearcher::search(const ParserResult& parserResult) const {
-	string searchBirth = parserResult.searchData;
-	OPTION2 birthOption = parserResult.option2;
 	map<string, EmployeeInfo> searchedInfo;
 
-	for (const auto& info : (*pDataBase_)) {
-		if (parserResult.searchData == filterData(info.second.birthday, birthOption)) {
-			searchedInfo[info.first] = info.second;
+	for (const auto& dbInfo : (*pDataBase_)) {
+		if (parserResult.searchData == filterData(dbInfo.second.birthday, parserResult.option2)) {
+			searchedInfo[dbInfo.first] = dbInfo.second;
 		}
 	}
 
@@ -136,9 +130,9 @@ string BirthdaySearcher::filterData(const string& birthDay, const OPTION2 birthO
 map<string, EmployeeInfo> CertiSearcher::search(const ParserResult& parserResult) const {
 	map<string, EmployeeInfo> searchedInfo;
 
-	for (const auto& info : (*pDataBase_)) {
-		if (parserResult.searchData == info.second.certi) {
-			searchedInfo[info.first] = info.second;
+	for (const auto& dbInfo : (*pDataBase_)) {
+		if (parserResult.searchData == dbInfo.second.certi) {
+			searchedInfo[dbInfo.first] = dbInfo.second;
 		}
 	}
 
