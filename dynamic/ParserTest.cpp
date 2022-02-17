@@ -10,48 +10,51 @@ protected:
 	OPTION1 parseOption1(const string paramStr) { return parser.parseOption1(paramStr); }
 	OPTION2 parseOption2(const string paramStr) { return parser.parseOption2(paramStr); }
 	OPTION3 parseOption3(const string paramStr) { return parser.parseOption3(paramStr); }
+	Parser::COLUMN_NUM columnStrToNum(const std::string columnStr) { return parser.columnStrToNum(columnStr); }
+	std::string columnNumToStr(const Parser::COLUMN_NUM columnNum) { return parser.columnNumToStr(columnNum); }
 	string validCheckColumnName(const string columnStr) { return parser.validCheckColumnName(columnStr); }
-	string validCheckColumnData(const string dataStr, const string columnStr) { return parser.validCheckColumnData(dataStr, columnStr); }
+	string validCheckColumnData(const string dataStr, Parser::COLUMN_NUM columnType) { return parser.validCheckColumnData(dataStr, columnType);}
 private:
 	Parser parser;
 };
 
 TEST_F(ParserTestPrivate, test_refactoring_column) {
-	EXPECT_EQ(COLUMN_NUM::employeeNum, columnStrToNum("employeeNum"));
-	EXPECT_EQ(COLUMN_NUM::name, columnStrToNum("name"));
-	EXPECT_EQ(COLUMN_NUM::cl, columnStrToNum("cl"));
-	EXPECT_EQ(COLUMN_NUM::phoneNum, columnStrToNum("phoneNum"));
-	EXPECT_EQ(COLUMN_NUM::birthday, columnStrToNum("birthday"));
-	EXPECT_EQ(COLUMN_NUM::certi, columnStrToNum("certi"));
+	EXPECT_EQ(Parser::COLUMN_NUM::employeeNum,	columnStrToNum("employeeNum"));
+	EXPECT_EQ(Parser::COLUMN_NUM::name,			columnStrToNum("name"));
+	EXPECT_EQ(Parser::COLUMN_NUM::cl,			columnStrToNum("cl"));
+	EXPECT_EQ(Parser::COLUMN_NUM::phoneNum,		columnStrToNum("phoneNum"));
+	EXPECT_EQ(Parser::COLUMN_NUM::birthday,		columnStrToNum("birthday"));
+	EXPECT_EQ(Parser::COLUMN_NUM::certi,		columnStrToNum("certi"));
 
-	EXPECT_EQ(columnNumToStr(COLUMN_NUM::employeeNum), "employeeNum");
-	EXPECT_EQ(columnNumToStr(COLUMN_NUM::name), "name");
-	EXPECT_EQ(columnNumToStr(COLUMN_NUM::cl), "cl");
-	EXPECT_EQ(columnNumToStr(COLUMN_NUM::phoneNum), "phoneNum");
-	EXPECT_EQ(columnNumToStr(COLUMN_NUM::birthday), "birthday");
-	EXPECT_EQ(columnNumToStr(COLUMN_NUM::certi), "certi");
+	EXPECT_EQ("employeeNum",	columnNumToStr(Parser::COLUMN_NUM::employeeNum));
+	EXPECT_EQ("name",			columnNumToStr(Parser::COLUMN_NUM::name));
+	EXPECT_EQ("cl",				columnNumToStr(Parser::COLUMN_NUM::cl));
+	EXPECT_EQ("phoneNum",		columnNumToStr(Parser::COLUMN_NUM::phoneNum));
+	EXPECT_EQ("birthday",		columnNumToStr(Parser::COLUMN_NUM::birthday));
+	EXPECT_EQ("certi",			columnNumToStr(Parser::COLUMN_NUM::certi));
 
-	EXPECT_EQ("employeeNum", validCheckColumnName("employeeNum"));
-	EXPECT_EQ("name", validCheckColumnName("name"));
-	EXPECT_EQ("cl", validCheckColumnName("cl"));
-	EXPECT_EQ("phoneNum", validCheckColumnName("phoneNum"));
-	EXPECT_EQ("birthday", validCheckColumnName("birthday"));
-	EXPECT_EQ("certi", validCheckColumnName("certi"));
+	EXPECT_EQ("employeeNum",	validCheckColumnName("employeeNum"));
+	EXPECT_EQ("name",			validCheckColumnName("name"));
+	EXPECT_EQ("cl",				validCheckColumnName("cl"));
+	EXPECT_EQ("phoneNum",		validCheckColumnName("phoneNum"));
+	EXPECT_EQ("birthday",		validCheckColumnName("birthday"));
+	EXPECT_EQ("certi",			validCheckColumnName("certi"));
 
 	//regex
-	EXPECT_EQ("010-1234-1234", validCheckColumnData("010-1234-1234", "phoneNum"));
-	EXPECT_EQ("010-124-1234", validCheckColumnData("010-124-1234", "phoneNum"));
-	EXPECT_EQ("1234", validCheckColumnData("1234", "phoneNum"));
- 	EXPECT_EQ("TTETHU HBO", validCheckColumnData("TTETHU HBO", "name"));
-	EXPECT_EQ("CL2", validCheckColumnData("CL2", "cl"));
-	EXPECT_EQ("19861203", validCheckColumnData("19861203", "birthday"));
-	EXPECT_EQ("2022", validCheckColumnData("2022", "birthday"));
-	EXPECT_EQ("12", validCheckColumnData("12", "birthday"));
-	EXPECT_EQ("PRO", validCheckColumnData("PRO", "certi"));
+	EXPECT_EQ("19123456",		validCheckColumnData("19123456",		Parser::COLUMN_NUM::employeeNum));
+ 	EXPECT_EQ("TTETHU HBO",		validCheckColumnData("TTETHU HBO",		Parser::COLUMN_NUM::name));
+	EXPECT_EQ("CL2",			validCheckColumnData("CL2",				Parser::COLUMN_NUM::cl));
+	EXPECT_EQ("010-1234-1234",	validCheckColumnData("010-1234-1234",	Parser::COLUMN_NUM::phoneNum));
+	EXPECT_EQ("010-124-1234",	validCheckColumnData("010-124-1234",	Parser::COLUMN_NUM::phoneNum));
+	EXPECT_EQ("1234",			validCheckColumnData("1234",			Parser::COLUMN_NUM::phoneNum));
+	EXPECT_EQ("19861203",		validCheckColumnData("19861203",		Parser::COLUMN_NUM::birthday));
+	EXPECT_EQ("2022",			validCheckColumnData("2022",			Parser::COLUMN_NUM::birthday));
+	EXPECT_EQ("12",				validCheckColumnData("12",				Parser::COLUMN_NUM::birthday));
+	EXPECT_EQ("PRO",			validCheckColumnData("PRO",				Parser::COLUMN_NUM::certi));
 #if PERFORMANCE_MODE == 0
-	EXPECT_EQ("", validCheckColumnData("32", "birthday"));
-	EXPECT_EQ("", validCheckColumnData("CL5", "cl"));
-	EXPECT_EQ("", validCheckColumnData("PROP", "certi"));
+	EXPECT_EQ("", validCheckColumnData("32",	Parser::COLUMN_NUM::birthday));
+	EXPECT_EQ("", validCheckColumnData("CL5",	Parser::COLUMN_NUM::cl));
+	EXPECT_EQ("", validCheckColumnData("PROF",	Parser::COLUMN_NUM::certi));
 #endif
 
 }
