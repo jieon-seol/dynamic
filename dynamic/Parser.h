@@ -38,4 +38,10 @@ private:
 		return regex_match(dataStr, re);
 #endif
 	}
+
+	//per Operation
+	void parseADD(struct ParserResult& result, const std::vector<std::string>& words);
+	void parseDEL(struct ParserResult& result, const std::vector<std::string>& words);
+	void parseSCH(struct ParserResult& result, const std::vector<std::string>& words);
+	void parseMOD(struct ParserResult& result, const std::vector<std::string>& words);
 };
