@@ -1,7 +1,7 @@
 #include "Operator.h"
+#include "GlobalMethod.h"
 
-
-void AddOperator::operate(const std::vector<EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
+void AddOperator::operate(const std::map<std::string, EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
 	if (pSearchedDb->size() == ALREADY_INCLUDED_DATABASE) {
 		throw std::invalid_argument("ERROR: Already included database");
 		return;
@@ -11,56 +11,47 @@ void AddOperator::operate(const std::vector<EmployeeInfo>* pSearchedDb, const Pa
 }
 
 void AddOperator::addDataBase(const EmployeeInfo& inputEmployeeInfo) {
-	pdataBase_->emplace_back(inputEmployeeInfo);
+	std::string key = getKeyFromEmployeeNum(inputEmployeeInfo.employeeNum);
+	(*pdataBase_)[key] = inputEmployeeInfo;
 	return;
 }
 
 
-void DeleteOperator::operate(const std::vector<EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
-	for (const auto& searchedInfo : *pSearchedDb) {
-		for (unsigned int i = 0; i < (*pdataBase_).size(); i++) {
-			if ((*pdataBase_)[i].employeeNum == searchedInfo.employeeNum) {
-				pdataBase_->erase((*pdataBase_).begin() + i);
-				break;
-			}
-		}
+void DeleteOperator::operate(const std::map<std::string, EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
+	for (const auto& searchedInfo : (*pSearchedDb)) {
+		(*pdataBase_).erase(searchedInfo.first);
 	}
 	return;
 }
 
 
-void SearchOperator::operate(const std::vector<EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
+void SearchOperator::operate(const std::map<std::string, EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
 	return;
 }
 
 
-void ModifyOperator::operate(const std::vector<EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
-	for (const auto& searchedInfo : *pSearchedDb) {
-		for (auto& dataBaseInfo : *pdataBase_) {
-			if (dataBaseInfo.employeeNum != searchedInfo.employeeNum) continue;
-
-			if (parserResult.changeColumn == "name") {
-				dataBaseInfo.name = parserResult.changeData;
-			}
-			else if (parserResult.changeColumn == "cl") {
-				dataBaseInfo.cl = parserResult.changeData;
-			}
-			else if (parserResult.changeColumn == "phoneNum") {
-				dataBaseInfo.phoneNum = parserResult.changeData;
-			}
-			else if (parserResult.changeColumn == "birthday") {
-				dataBaseInfo.birthday = parserResult.changeData;
-			}
-			else if (parserResult.changeColumn == "certi") {
-				dataBaseInfo.certi = parserResult.changeData;
-			}
-			break;
+void ModifyOperator::operate(const std::map<std::string, EmployeeInfo>* pSearchedDb, const ParserResult& parserResult) {
+	for (const auto& searchedInfo : (*pSearchedDb)) {
+		if (parserResult.changeColumn == "name") {
+			(*pdataBase_)[searchedInfo.first].name = parserResult.changeData;
+		}
+		else if (parserResult.changeColumn == "cl") {
+			(*pdataBase_)[searchedInfo.first].cl = parserResult.changeData;
+		}
+		else if (parserResult.changeColumn == "phoneNum") {
+			(*pdataBase_)[searchedInfo.first].phoneNum = parserResult.changeData;
+		}
+		else if (parserResult.changeColumn == "birthday") {
+			(*pdataBase_)[searchedInfo.first].birthday = parserResult.changeData;
+		}
+		else if (parserResult.changeColumn == "certi") {
+			(*pdataBase_)[searchedInfo.first].certi = parserResult.changeData;
 		}
 	}
 	return;
 }
 
-FactoryOperator::FactoryOperator(std::vector<EmployeeInfo>* pDb) {
+FactoryOperator::FactoryOperator(std::map<std::string, EmployeeInfo>* pDb) {
 	pAddOperator_ = new AddOperator(pDb);
 	pDeleteOperator_ = new DeleteOperator(pDb);
 	pSearchOperator_ = new SearchOperator(pDb);
