@@ -27,6 +27,11 @@ public:
 private:
 	virtual std::vector<EmployeeInfo> search(const ParserResult& parserResult) const override;
 	std::string filterData(const std::string& name, const OPTION2 option) const;
+
+private:
+	static constexpr int MAX_SUB_NAME_COUNT = 2;
+	static constexpr int LAST_NAME_INDEX = 0;
+	static constexpr int FIRST_NAME_INDEX = 1;	
 };
 
 class ClSearcher : public Searcher {
@@ -44,6 +49,11 @@ public:
 private:
 	virtual std::vector<EmployeeInfo> search(const ParserResult& parserResult) const override;
 	std::string filterData(const std::string& phoneNumber, const OPTION2 numberOption) const;
+
+private:
+	static constexpr int MAX_SUB_PHONE_NUM_COUNT = 3;
+	static constexpr int MIDDLE_PHONE_NUM_INDEX = 1;
+	static constexpr int LAST_PHONE_NUM_INDEX = 2;
 };
 
 class BirthdaySearcher : public Searcher {
@@ -53,6 +63,14 @@ public:
 private:
 	virtual std::vector<EmployeeInfo> search(const ParserResult& parserResult) const override;
 	std::string filterData(const std::string& birthDay, const OPTION2 birthOption) const;
+
+private:
+	static constexpr int YEAR_START_INDEX = 0;
+	static constexpr int YEAR_NUM_COUNT = 4;
+	static constexpr int MONTH_START_INDEX = YEAR_START_INDEX + YEAR_NUM_COUNT;
+	static constexpr int MONTH_NUM_COUNT = 2;
+	static constexpr int DAY_START_INDEX = MONTH_START_INDEX + MONTH_NUM_COUNT;
+	static constexpr int DAY_NUM_COUNT = 2;
 };
 
 class CertiSearcher : public Searcher {
@@ -80,12 +98,12 @@ public:
 		pCertiSearcher_ = new CertiSearcher(pDataBase);
 	}
 	~FactorySearcher() {
-		delete pEmployeeNumSearcher_;
-		delete pNameSearcher_;
-		delete pClSearcher_;
-		delete pPhoneNumSearcher_;
-		delete pBirthdaySearcher_;
-		delete pCertiSearcher_;
+		if (pEmployeeNumSearcher_) delete pEmployeeNumSearcher_;
+		if (pNameSearcher_) delete pNameSearcher_;
+		if (pClSearcher_) delete pClSearcher_;
+		if (pPhoneNumSearcher_) delete pPhoneNumSearcher_;
+		if (pBirthdaySearcher_) delete pBirthdaySearcher_;
+		if (pCertiSearcher_) delete pCertiSearcher_;
 	}
 
 private:

@@ -7,6 +7,7 @@ using namespace std;
 
 vector<EmployeeInfo> EmployeeNumSearcher::search(const ParserResult& parserResult) const {
 	vector<EmployeeInfo> result;
+
 	for (const auto& info : (*pDataBase_)) {
 		if (parserResult.searchData == info.employeeNum) {
 			result.emplace_back(info);
@@ -17,12 +18,10 @@ vector<EmployeeInfo> EmployeeNumSearcher::search(const ParserResult& parserResul
 }
 
 vector<EmployeeInfo> NameSearcher::search(const ParserResult& parserResult) const {
-	string searchName = parserResult.searchData;
-	OPTION2 nameOption = parserResult.option2;
 	vector<EmployeeInfo> result;
 
 	for (const auto& info : (*pDataBase_)) {
-		if (searchName == filterData(info.name, nameOption)) {
+		if (parserResult.searchData == filterData(info.name, parserResult.option2)) {
 			result.emplace_back(info);
 		}
 	}
@@ -36,16 +35,16 @@ string NameSearcher::filterData(const string& name, const OPTION2 nameOption) co
 	}
 
 	vector<string> subName = splitString(name, ' ');
-	if (subName.size() != 2) {
+	if (subName.size() != MAX_SUB_NAME_COUNT) {
 		throw invalid_argument("ERROR: Invalid Name");
 	}
 
 	if (nameOption == OPTION2::F) {
-		return subName[0];
+		return subName[LAST_NAME_INDEX];
 	}
 
 	if (nameOption == OPTION2::L) {
-		return subName[1];
+		return subName[FIRST_NAME_INDEX];
 	}
 
 	throw invalid_argument("ERROR: Invalid Name Option2");
@@ -53,6 +52,7 @@ string NameSearcher::filterData(const string& name, const OPTION2 nameOption) co
 
 vector<EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) const {
 	vector<EmployeeInfo> result;
+
 	for (const auto& info : (*pDataBase_)) {
 		if (parserResult.searchData == info.cl) {
 			result.emplace_back(info);
@@ -62,12 +62,10 @@ vector<EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) const 
 }
 
 vector<EmployeeInfo> PhoneNumberSearcher::search(const ParserResult& parserResult) const {
-	string searchNumber = parserResult.searchData;
-	OPTION2 numberOption = parserResult.option2;
 	vector<EmployeeInfo> result;
 
 	for (const auto& info : (*pDataBase_)) {
-		if (searchNumber == filterData(info.phoneNum, numberOption)) {
+		if (parserResult.searchData == filterData(info.phoneNum, parserResult.option2)) {
 			result.emplace_back(info);
 		}
 	}
@@ -81,28 +79,26 @@ string PhoneNumberSearcher::filterData(const string& phoneNum, const OPTION2 num
 	}
 
 	vector<string> subPhoneNum = splitString(phoneNum, '-');
-	if (subPhoneNum.size() != 3) {
+	if (subPhoneNum.size() != MAX_SUB_PHONE_NUM_COUNT) {
 		throw invalid_argument("ERROR: Invalid Phone Number");
 	}
 
 	if (numOption == OPTION2::M) {
-		return subPhoneNum[1];
+		return subPhoneNum[MIDDLE_PHONE_NUM_INDEX];
 	}
 
 	if (numOption == OPTION2::L) {
-		return subPhoneNum[2];
+		return subPhoneNum[LAST_PHONE_NUM_INDEX];
 	}
 
 	throw invalid_argument("ERROR: Invalid Phone Number Option2");
 }
 
 vector<EmployeeInfo> BirthdaySearcher::search(const ParserResult& parserResult) const {
-	string searchBirth = parserResult.searchData;
-	OPTION2 birthOption = parserResult.option2;
 	vector<EmployeeInfo> result;
 
 	for (const auto& info : (*pDataBase_)) {
-		if (searchBirth == filterData(info.birthday, birthOption)) {
+		if (parserResult.searchData == filterData(info.birthday, parserResult.option2)) {
 			result.emplace_back(info);
 		}
 	}
@@ -114,13 +110,13 @@ string BirthdaySearcher::filterData(const string& birthDay, const OPTION2 birthO
 	if (birthOption == OPTION2::NONE) return birthDay;
 
 	if (birthOption == OPTION2::Y) {
-		return birthDay.substr(0, 4);
+		return birthDay.substr(YEAR_START_INDEX, YEAR_NUM_COUNT);
 	}
 	else if (birthOption == OPTION2::M) {
-		return birthDay.substr(4, 2);
+		return birthDay.substr(MONTH_START_INDEX, MONTH_NUM_COUNT);
 	}
 	else if (birthOption == OPTION2::D) {
-		return birthDay.substr(6, 2);
+		return birthDay.substr(DAY_START_INDEX, DAY_NUM_COUNT);
 	}
 
 	throw invalid_argument("ERROR: Invalid Birthday Option2");
