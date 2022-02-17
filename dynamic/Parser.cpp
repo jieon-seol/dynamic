@@ -17,15 +17,13 @@ OPERATION_TYPE Parser::parseOperationType(const string paramStr) {
 	if (paramStr == "DEL") return OPERATION_TYPE::DEL;
 	if (paramStr == "SCH") return OPERATION_TYPE::SCH;
 	if (paramStr == "MOD") return OPERATION_TYPE::MOD;
-	else return OPERATION_TYPE::MAX;	//abnormal case
-										//	TODO: throw exception?
+	else return OPERATION_TYPE::MAX;//abnormal case
 }
 
 OPTION1 Parser::parseOption1(const string paramStr) {
 	if (paramStr == "-p") return OPTION1::P;
-	if (paramStr == " ") return OPTION1::NONE;	//normal case
-	else return OPTION1::MAX;	//abnormal case
-								//	TODO: throw exception?
+	if (paramStr == " ")  return OPTION1::NONE;//normal case
+	else return OPTION1::MAX;//abnormal case
 }
 
 OPTION2 Parser::parseOption2(const string paramStr) {
@@ -34,25 +32,28 @@ OPTION2 Parser::parseOption2(const string paramStr) {
 	if (paramStr == "-d") return OPTION2::D;
 	if (paramStr == "-l") return OPTION2::L;
 	if (paramStr == "-f") return OPTION2::F;
-	if (paramStr == " ") return OPTION2::NONE;	//normal case
-	else return OPTION2::MAX;	//abnormal case
-								//	TODO: throw exception?
+	if (paramStr == " ")  return OPTION2::NONE;//normal case
+	else return OPTION2::MAX;//abnormal case
 }
 
 OPTION3 Parser::parseOption3(const string paramStr) {
-	if (paramStr == " ") return OPTION3::NONE;	//normal case
-	else return OPTION3::MAX;	//abnormal case
-								//	TODO: throw exception?
+	if (paramStr == " ")
+		return OPTION3::NONE;//normal case
+	else
+		return OPTION3::MAX;//abnormal case
 }
 
 Parser::COLUMN_NUM Parser::columnStrToNum(const string columnStr) {
 	for (int i = 0; i < columns.size(); i++) {
-		if (columns[i].columnStr_ == columnStr) return (COLUMN_NUM)i;
+		if (columns[i].columnStr_ == columnStr)
+			return (COLUMN_NUM)i;
 	}
 	return COLUMN_NUM::NONE;
 }
+
 string Parser::columnNumToStr(const COLUMN_NUM columnNum) {
-	if (columnNum <= COLUMN_NUM::NONE || columnNum >= COLUMN_NUM::MAX) return "";
+	if (columnNum <= COLUMN_NUM::NONE || columnNum >= COLUMN_NUM::MAX)
+		return "";
 	return columns[(int)columnNum].columnStr_;
 }
 
@@ -60,13 +61,16 @@ string Parser::validCheckColumnName(const string columnStr) {
 	for (int i = 0; i < columns.size(); i++) {
 		if (columns[i].columnStr_ == columnStr) return columnStr;
 	}
-	return "";	//abnormal case
+	return "";//abnormal case
 }
 
 string Parser::validCheckColumnData(const string dataStr, COLUMN_NUM columnType) {
-	if (columnType <= COLUMN_NUM::NONE || columnType >= COLUMN_NUM::MAX) return "";	//abnormal case
-	if (checkValidDataFormat(columns[(int)columnType].dataRegexFormat_, dataStr)) return dataStr;
-	else return ""; //abnormal case
+	if (columnType <= COLUMN_NUM::NONE || columnType >= COLUMN_NUM::MAX)
+		return "";//abnormal case
+	if (checkValidDataFormat(columns[(int)columnType].dataRegexFormat_, dataStr))
+		return dataStr;
+	else
+		return ""; //abnormal case
 }
 
 void Parser::parseADD(struct ParserResult& result, const vector<string>& words) {
@@ -116,26 +120,19 @@ void Parser::parseMOD(struct ParserResult& result, const vector<string>& words) 
 struct ParserResult Parser::parse(string queryStirng) {
 	struct ParserResult result;
 
-	try {
-		vector<string> words = splitString(queryStirng, ',');
+	vector<string> words = splitString(queryStirng, ',');
 
-		//TODO: try-catch 추가 (parsing Error)
-		result.operationType = parseOperationType(words[0]);
+	result.operationType = parseOperationType(words[0]);
 
-		switch (result.operationType) {
-			//TODO: factory
-		case OPERATION_TYPE::ADD: parseADD(result, words); break;
-		case OPERATION_TYPE::DEL: parseDEL(result, words); break;
-		case OPERATION_TYPE::SCH: parseSCH(result, words); break;
-		case OPERATION_TYPE::MOD: parseMOD(result, words); break;
-		default:
-			;
-		}
-
+	switch (result.operationType) {
+		//TODO: factory
+	case OPERATION_TYPE::ADD: parseADD(result, words); break;
+	case OPERATION_TYPE::DEL: parseDEL(result, words); break;
+	case OPERATION_TYPE::SCH: parseSCH(result, words); break;
+	case OPERATION_TYPE::MOD: parseMOD(result, words); break;
+	default:
+		;
 	}
-	catch (exception& e) {
-		//TODO: exception ? exception을 던지려면, Manager에서 받아줘야 함
-		e.what();
-	}
+
 	return result;
 }
