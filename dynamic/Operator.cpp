@@ -58,6 +58,13 @@ FactoryOperator::FactoryOperator(std::map<int, EmployeeInfo>* pDb) {
 	pModifyOperator_ = new ModifyOperator(pDb);
 }
 
+FactoryOperator::~FactoryOperator() {
+	if (pAddOperator_) delete pAddOperator_;
+	if (pDeleteOperator_) delete pDeleteOperator_;
+	if (pAddOperator_) delete pSearchOperator_;
+	if (pAddOperator_) delete pModifyOperator_;
+};
+
 Operator* FactoryOperator::getOperator(ParserResult& parserResult) {
 	Operator* retOperator = nullptr;
 	switch (parserResult.operationType)
