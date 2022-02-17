@@ -41,10 +41,19 @@ TEST_F(ParserTestPrivate, test_refactoring_column) {
 	//regex
 	EXPECT_EQ("010-1234-1234", validCheckColumnData("010-1234-1234", "phoneNum"));
 	EXPECT_EQ("010-124-1234", validCheckColumnData("010-124-1234", "phoneNum"));
-	EXPECT_EQ("TTETHU HBO", validCheckColumnData("TTETHU HBO", "name"));
+	EXPECT_EQ("1234", validCheckColumnData("1234", "phoneNum"));
+ 	EXPECT_EQ("TTETHU HBO", validCheckColumnData("TTETHU HBO", "name"));
 	EXPECT_EQ("CL2", validCheckColumnData("CL2", "cl"));
 	EXPECT_EQ("19861203", validCheckColumnData("19861203", "birthday"));
+	EXPECT_EQ("2022", validCheckColumnData("2022", "birthday"));
+	EXPECT_EQ("12", validCheckColumnData("12", "birthday"));
 	EXPECT_EQ("PRO", validCheckColumnData("PRO", "certi"));
+#if PERFORMANCE_MODE == 0
+	EXPECT_EQ("", validCheckColumnData("32", "birthday"));
+	EXPECT_EQ("", validCheckColumnData("CL5", "cl"));
+	EXPECT_EQ("", validCheckColumnData("PROP", "certi"));
+#endif
+
 }
 #if 10
 
