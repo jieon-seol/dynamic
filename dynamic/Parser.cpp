@@ -3,8 +3,7 @@
 
 using namespace std;
 
-
-Column columns[(unsigned long long)COLUMN_NUM::MAX]{
+vector<Column> columns {
 		{"employeeNum", "\\d{8}"},
 		{"name", "[a-z,A-Z, ]+"},
 		{"cl", "CL[1-4]"},
@@ -46,34 +45,28 @@ OPTION3 Parser::parseOption3(const string paramStr) {
 								//	TODO: throw exception?
 }
 
-COLUMN_NUM columnStrToNum(const string columnStr) {
-	for (int i = 0; i < (int)COLUMN_NUM::MAX; i++) {
-		if (columns[i].getColumnName() == columnStr) return (COLUMN_NUM)i;
+Parser::COLUMN_NUM Parser::columnStrToNum(const string columnStr) {
+	for (int i = 0; i < columns.size(); i++) {
+		if (columns[i].columnStr_ == columnStr) return (COLUMN_NUM)i;
 	}
 	return COLUMN_NUM::NONE;
 }
-string columnNumToStr(const COLUMN_NUM columnNum) {
-	if (columnNum <= COLUMN_NUM::NONE || columnNum >= COLUMN_NUM::MAX)
-		return "";
-	return columns[(unsigned long long)columnNum].getColumnName();
+string Parser::columnNumToStr(const COLUMN_NUM columnNum) {
+	if (columnNum <= COLUMN_NUM::NONE || columnNum >= COLUMN_NUM::MAX) return "";
+	return columns[(int)columnNum].columnStr_;
 }
 
-string Parser::validCheckColumnName(const string paramStr) {
-	for (int i = 0; i < (int)COLUMN_NUM::MAX; i++) {
-		if (columns[i].getColumnName() == paramStr) return paramStr;
+string Parser::validCheckColumnName(const string columnStr) {
+	for (int i = 0; i < columns.size(); i++) {
+		if (columns[i].columnStr_ == columnStr) return columnStr;
 	}
 	return "";	//abnormal case
 }
 
-string Parser::validCheckColumnData(const string dataStr, const string columnStr) {
-	//TODO: add valid check -> invalid시에 throw exception
-	for (int i = 0; i < (int)COLUMN_NUM::MAX; i++) {
-		if (columns[i].getColumnName() == columnStr) {
-			if (columns[i].checkValidDataFormat(dataStr)) return dataStr;
-			else return "";
-		}
-	}
-	return "";	//abnormal case
+string Parser::validCheckColumnData(const string dataStr, COLUMN_NUM columnType) {
+	if (columnType <= COLUMN_NUM::NONE || columnType >= COLUMN_NUM::MAX) return "";	//abnormal case
+	if (checkValidDataFormat(columns[(int)columnType].dataRegexFormat_, dataStr)) return dataStr;
+	else return ""; //abnormal case
 }
 
 
@@ -91,25 +84,25 @@ struct ParserResult Parser::parse(string queryStirng) {
 
 		switch (result.operationType) {
 		case OPERATION_TYPE::ADD:
-			result.info.employeeNum = validCheckColumnData(words[4], "employeeNum");
-			result.info.name = validCheckColumnData(words[5], "name");
-			result.info.cl = validCheckColumnData(words[6], "cl");
-			result.info.phoneNum = validCheckColumnData(words[7], "phoneNum");
-			result.info.birthday = validCheckColumnData(words[8], "birthday");
-			result.info.certi = validCheckColumnData(words[9], "certi");
+			result.info.employeeNum = validCheckColumnData(words[4], COLUMN_NUM::employeeNum);
+			result.info.name = validCheckColumnData(words[5], COLUMN_NUM::name);
+			result.info.cl = validCheckColumnData(words[6], COLUMN_NUM::cl);
+			result.info.phoneNum = validCheckColumnData(words[7], COLUMN_NUM::phoneNum);
+			result.info.birthday = validCheckColumnData(words[8], COLUMN_NUM::birthday);
+			result.info.certi = validCheckColumnData(words[9], COLUMN_NUM::certi);
 			result.searchColumn = "employeeNum";
 			result.searchData = result.info.employeeNum;
 			break;
 		case OPERATION_TYPE::DEL:
 		case OPERATION_TYPE::SCH:
 			result.searchColumn = validCheckColumnName(words[4]);
-			result.searchData = validCheckColumnData(words[5], result.searchColumn);
+			result.searchData = validCheckColumnData(words[5], columnStrToNum(result.searchColumn));
 			break;
 		case OPERATION_TYPE::MOD:
 			result.searchColumn = validCheckColumnName(words[4]);
-			result.searchData = validCheckColumnData(words[5], result.searchColumn);
+			result.searchData = validCheckColumnData(words[5], columnStrToNum(result.searchColumn));
 			result.changeColumn = validCheckColumnName(words[6]);
-			result.changeData = validCheckColumnData(words[7], result.changeColumn);
+			result.changeData = validCheckColumnData(words[7], columnStrToNum(result.changeColumn));
 			break;
 		default:
 			;
