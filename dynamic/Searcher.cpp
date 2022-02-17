@@ -6,10 +6,10 @@
 
 using namespace std;
 
-map<string, EmployeeInfo> EmployeeNumSearcher::search(const ParserResult& parserResult) const {
-	map<string, EmployeeInfo> searchedInfo;
+map<int, EmployeeInfo> EmployeeNumSearcher::search(const ParserResult& parserResult) const {
+	map<int, EmployeeInfo> searchedInfo;
 
-	string key = getKeyFromEmployeeNum(parserResult.searchData);
+	int key = getKeyFromEmployeeNum(parserResult.searchData);
 	if ((*pDataBase_).count(key)) {
 		searchedInfo[key] = (*pDataBase_)[key];
 	}
@@ -17,8 +17,8 @@ map<string, EmployeeInfo> EmployeeNumSearcher::search(const ParserResult& parser
 	return searchedInfo;
 }
 
-map<string, EmployeeInfo> NameSearcher::search(const ParserResult& parserResult) const {
-	map<string, EmployeeInfo> searchedInfo;
+map<int, EmployeeInfo> NameSearcher::search(const ParserResult& parserResult) const {
+	map<int, EmployeeInfo> searchedInfo;
 
 	for (const auto& dbInfo : (*pDataBase_)) {
 		if (parserResult.searchData == filterData(dbInfo.second.name, parserResult.option2)) {
@@ -50,8 +50,8 @@ string NameSearcher::filterData(const string& name, const OPTION2 nameOption) co
 	throw invalid_argument("ERROR: Invalid Name Option2");
 }
 
-map<string, EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) const {
-	map<string, EmployeeInfo> searchedInfo;
+map<int, EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) const {
+	map<int, EmployeeInfo> searchedInfo;
 
 	for (const auto& dbInfo : (*pDataBase_)) {
 		if (parserResult.searchData == dbInfo.second.cl) {
@@ -62,8 +62,8 @@ map<string, EmployeeInfo> ClSearcher::search(const ParserResult& parserResult) c
 	return searchedInfo;
 }
 
-map<string, EmployeeInfo> PhoneNumberSearcher::search(const ParserResult& parserResult) const {
-	map<string, EmployeeInfo> searchedInfo;
+map<int, EmployeeInfo> PhoneNumberSearcher::search(const ParserResult& parserResult) const {
+	map<int, EmployeeInfo> searchedInfo;
 
 	for (const auto& dbInfo : (*pDataBase_)) {
 		if (parserResult.searchData == filterData(dbInfo.second.phoneNum, parserResult.option2)) {
@@ -95,8 +95,8 @@ string PhoneNumberSearcher::filterData(const string& phoneNum, const OPTION2 num
 	throw invalid_argument("ERROR: Invalid Phone Number Option2");
 }
 
-map<string, EmployeeInfo> BirthdaySearcher::search(const ParserResult& parserResult) const {
-	map<string, EmployeeInfo> searchedInfo;
+map<int, EmployeeInfo> BirthdaySearcher::search(const ParserResult& parserResult) const {
+	map<int, EmployeeInfo> searchedInfo;
 
 	for (const auto& dbInfo : (*pDataBase_)) {
 		if (parserResult.searchData == filterData(dbInfo.second.birthday, parserResult.option2)) {
@@ -127,8 +127,8 @@ string BirthdaySearcher::filterData(const string& birthDay, const OPTION2 birthO
 	throw invalid_argument("ERROR: Invalid Birthday Option2");
 }
 
-map<string, EmployeeInfo> CertiSearcher::search(const ParserResult& parserResult) const {
-	map<string, EmployeeInfo> searchedInfo;
+map<int, EmployeeInfo> CertiSearcher::search(const ParserResult& parserResult) const {
+	map<int, EmployeeInfo> searchedInfo;
 
 	for (const auto& dbInfo : (*pDataBase_)) {
 		if (parserResult.searchData == dbInfo.second.certi) {
