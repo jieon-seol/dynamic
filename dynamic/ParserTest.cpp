@@ -38,7 +38,6 @@ TEST_F(ParserTestPrivate, test_refactoring_column) {
 	EXPECT_EQ("birthday",		validCheckColumnName("birthday"));
 	EXPECT_EQ("certi",			validCheckColumnName("certi"));
 
-	//regex
 	EXPECT_EQ("19123456",		validCheckColumnData("19123456",		COLUMN_NUM::employeeNum));
  	EXPECT_EQ("TTETHU HBO",		validCheckColumnData("TTETHU HBO",		COLUMN_NUM::name));
 	EXPECT_EQ("CL2",			validCheckColumnData("CL2",				COLUMN_NUM::cl));

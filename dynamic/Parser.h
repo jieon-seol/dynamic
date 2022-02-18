@@ -29,7 +29,6 @@ protected:
 	static std::string validCheckColumnData(const std::string dataStr, COLUMN_NUM columnType);
 
 #define PERFORMANCE_MODE 01
-	//regex_match()시간이 오래 걸릴 수 있으므로, regex 검사를 끕니다
 	static bool checkValidDataFormat(std::string format, std::string dataStr) {
 #if PERFORMANCE_MODE
 		return true;
@@ -115,7 +114,7 @@ public:
 		if (operationStr == "DEL") return pDelOperationParser;
 		if (operationStr == "SCH") return pSchOperationParser;
 		if (operationStr == "MOD") return pModOperationParser;
-		else return nullptr;//abnormal case
+		else return nullptr;
 	}
 
 private:

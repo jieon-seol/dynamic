@@ -17,9 +17,9 @@ struct EmployeeInfo {
 
 struct ParserResult {
 	OPERATION_TYPE operationType;
-	OPTION1 option1;	// print detail
-	OPTION2 option2;	// 검색 세부 옵션
-	OPTION3 option3;	// 옵션3: 현재는 비어있음
+	OPTION1 option1;
+	OPTION2 option2;
+	OPTION3 option3;
 	std::string searchColumn;
 	std::string searchData;
 	std::string changeColumn;
