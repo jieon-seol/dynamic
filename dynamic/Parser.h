@@ -114,7 +114,7 @@ public:
 		if (operationStr == "DEL") return pDelOperationParser;
 		if (operationStr == "SCH") return pSchOperationParser;
 		if (operationStr == "MOD") return pModOperationParser;
-		else return nullptr;
+		return nullptr;
 	}
 
 private:
