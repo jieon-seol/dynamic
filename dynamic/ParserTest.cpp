@@ -48,7 +48,7 @@ TEST_F(ParserTestPrivate, test_refactoring_column) {
 	EXPECT_EQ("2022",			validCheckColumnData("2022",			COLUMN_NUM::birthday));
 	EXPECT_EQ("12",				validCheckColumnData("12",				COLUMN_NUM::birthday));
 	EXPECT_EQ("PRO",			validCheckColumnData("PRO",				COLUMN_NUM::certi));
-#if PERFORMANCE_MODE == 0
+#if PERFORMANCE_MODE_SKIP_REGEX_CHECK == 0
 	EXPECT_EQ("", validCheckColumnData("32",	COLUMN_NUM::birthday));
 	EXPECT_EQ("", validCheckColumnData("CL5",	COLUMN_NUM::cl));
 	EXPECT_EQ("", validCheckColumnData("PROF",	COLUMN_NUM::certi));
@@ -85,7 +85,7 @@ TEST_F(ParserTestPrivate, Test_PrivateMethod) {
 	EXPECT_EQ("birthday",		validCheckColumnName("birthday"));
 	EXPECT_EQ("certi",			validCheckColumnName("certi"));
 
-#if PERFORMANCE_MODE == 0
+#if PERFORMANCE_MODE_SKIP_REGEX_CHECK == 0
 	EXPECT_EQ("",				validCheckColumnName("asdf"));
 #endif
 }
@@ -107,7 +107,6 @@ TEST(ParserTest, test_ADD_normal_01) {
 	EXPECT_EQ("19771211", result.info.birthday);
 	EXPECT_EQ("ADV", result.info.certi);
 }
-#if 01
 
 TEST(ParserTest, test_DEL_normal_01_employeeNum) {
 	Parser* pParser = new Parser();
@@ -293,4 +292,3 @@ TEST(ParserTest, test_MOD_normal_01) {
 	EXPECT_EQ("", result.info.birthday);
 	EXPECT_EQ("", result.info.certi);
 }
-#endif

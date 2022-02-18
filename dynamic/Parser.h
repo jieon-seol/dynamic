@@ -28,9 +28,9 @@ protected:
 	static std::string validCheckColumnName(const std::string columnStr);
 	static std::string validCheckColumnData(const std::string dataStr, COLUMN_NUM columnType);
 
-#define PERFORMANCE_MODE 01
+#define PERFORMANCE_MODE_SKIP_REGEX_CHECK 01
 	static bool checkValidDataFormat(std::string format, std::string dataStr) {
-#if PERFORMANCE_MODE
+#if PERFORMANCE_MODE_SKIP_REGEX_CHECK
 		return true;
 #else
 		std::regex re(format, std::regex::optimize);
