@@ -17,13 +17,13 @@ OPERATION_TYPE OperationParser::parseOperationType(const string paramStr) {
 	if (paramStr == "DEL") return OPERATION_TYPE::DEL;
 	if (paramStr == "SCH") return OPERATION_TYPE::SCH;
 	if (paramStr == "MOD") return OPERATION_TYPE::MOD;
-	return OPERATION_TYPE::MAX;//abnormal case
+	return OPERATION_TYPE::MAX;
 }
 
 OPTION1 OperationParser::parseOption1(const string paramStr) {
 	if (paramStr == "-p") return OPTION1::P;
-	if (paramStr == " ")  return OPTION1::NONE;//normal case
-	return OPTION1::MAX;//abnormal case
+	if (paramStr == " ")  return OPTION1::NONE;
+	return OPTION1::MAX;
 }
 
 OPTION2 OperationParser::parseOption2(const string paramStr) {
@@ -32,14 +32,14 @@ OPTION2 OperationParser::parseOption2(const string paramStr) {
 	if (paramStr == "-d") return OPTION2::D;
 	if (paramStr == "-l") return OPTION2::L;
 	if (paramStr == "-f") return OPTION2::F;
-	if (paramStr == " ")  return OPTION2::NONE;//normal case
-	return OPTION2::MAX;//abnormal case
+	if (paramStr == " ")  return OPTION2::NONE;
+	return OPTION2::MAX;
 }
 
 OPTION3 OperationParser::parseOption3(const string paramStr) {
 	if (paramStr == " ")
-		return OPTION3::NONE;//normal case
-	return OPTION3::MAX;//abnormal case
+		return OPTION3::NONE;
+	return OPTION3::MAX;
 }
 
 COLUMN_NUM OperationParser::columnStrToNum(const string columnStr) {
@@ -60,15 +60,15 @@ string OperationParser::validCheckColumnName(const string columnStr) {
 	for (int i = 0; i < columns.size(); i++) {
 		if (columns[i].columnStr_ == columnStr) return columnStr;
 	}
-	return "";//abnormal case
+	return "";
 }
 
 string OperationParser::validCheckColumnData(const string dataStr, COLUMN_NUM columnType) {
 	if (columnType <= COLUMN_NUM::NONE || columnType >= COLUMN_NUM::MAX)
-		return "";//abnormal case
+		return "";
 	if (checkValidDataFormat(columns[(int)columnType].dataRegexFormat_, dataStr))
 		return dataStr;
-	return ""; //abnormal case
+	return ""; 
 }
 
 struct ParserResult Parser::parse(string queryStirng) {
